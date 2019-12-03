@@ -10,16 +10,16 @@ import common.Hibernate;
 import common.Utility;
 import interfaces.BaseDaoInteface;
 
-public  class BaseDao<Clazz> implements BaseDaoInteface {
+public abstract  class BaseDao<Clazz> implements BaseDaoInteface {
 	private Session session;
 	private final Class<Clazz> clazz;
 	
 	public BaseDao(Class<Clazz> entity) {
 		this.clazz = entity;
 	}
-
+	
+	
 	public List<Clazz> selectAll() {
-		
 		this.session = Hibernate.getConnection();
 		List<Clazz> list = this.session
 				.createQuery("select e from " +clazz.getSimpleName() + " e  WHERE  status = " + Constant.Status.ACTIVE, this.clazz)
@@ -28,7 +28,13 @@ public  class BaseDao<Clazz> implements BaseDaoInteface {
 		return list;
 	}
 	
+	protected abstract boolean vaildateRequest();
+	
+	@Override
 	public void insertOne(String[] field, String[] param) {
+		if(!vaildateRequest()) {
+			return ;
+		}
 		StringBuilder ss = new StringBuilder();
 		ss.append("INSERT INTO " + this.clazz.getSimpleName() + " ");
 		ss.append("(" + seperateByComma(field, 1) + ")");
@@ -51,8 +57,12 @@ public  class BaseDao<Clazz> implements BaseDaoInteface {
 		}
 
 	}
-
+	
+	@Override
 	public void updateOne(String[] field, String[] param) {
+		if(!vaildateRequest()) {
+			return ;
+		}
 		int n = param.length - 1;
 		String[] newParam = new String[n];
 		for (int i = 0; i < n; i++) {
@@ -79,12 +89,13 @@ public  class BaseDao<Clazz> implements BaseDaoInteface {
 		}
 	}
 
+	@Override
 	public void delete(String id) {
 		try {
 			this.session.getTransaction().begin();
 			this.session
 					.createQuery(
-							"UPDATE" + this.clazz.getSimpleName() + " SET status = " + Constant.Status.INACTIVE + " WHERE id = ?")
+							"UPDATE " + this.clazz.getSimpleName() + " SET status = " + Constant.Status.INACTIVE + " WHERE id = ?")
 					.setParameter(1, id).executeUpdate();
 			this.session.getTransaction().commit();
 		} catch (Exception ex) {
@@ -93,5 +104,4 @@ public  class BaseDao<Clazz> implements BaseDaoInteface {
 			Utility.closeSession(session);
 		}
 	}
-
 }
