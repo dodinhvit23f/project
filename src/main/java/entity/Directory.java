@@ -6,6 +6,10 @@ package entity;
  */
 public class Directory implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6185625218048697934L;
 	private Integer id;
 	private String username;
 	private String phone;

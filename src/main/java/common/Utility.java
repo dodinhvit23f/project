@@ -5,8 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+import javax.persistence.EntityManager;
+
 import org.apache.commons.lang3.math.NumberUtils;
-import org.hibernate.Session;
 
 public final class Utility {
 	public static int convertInt(String number) {
@@ -39,11 +40,11 @@ public final class Utility {
 		return Double.parseDouble(number);
 	}
 
-	public static void closeSession(Session session) {
-		if (session == null) {
+	public static void closeObject(EntityManager manager)   {	
+		if (manager == null) {
 			return;
 		}
-		session.close();
+		manager.close();
 	}
 
 	public static String stringCN(String string) {
