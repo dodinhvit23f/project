@@ -1,8 +1,5 @@
 package Main;
 
-import java.sql.Date;
-import java.util.List;
-
 import common.Utility;
 import dao.ProductsDao;
 import entity.Products;
@@ -16,13 +13,19 @@ public class Main {
 		 * String [] field = {"username","phone" ,"area","rank","id"}; String [] param =
 		 * {"tiendd","16","Viet Nam","1","14"}; dao.updateOne(field, param)
 		 */
-			List<Products> list = dao.selectAll();
+			Products a = new Products();
+			a.setKind("Gà");
+			a.setName("Gà xả tương ớt");
+			a.setUrl("CO gi dau");
+			a.setExpDate(Utility.fomatDate("2019/12/3 11:16:45"));
+			a.setImportDate(Utility.fomatDate("2019/12/3 11:16:45"));
+			a.setPriceIn(90);
 		//	dao.selectAll();
 		//	dao.insertOne(new String[] {"a "}, new String[] {"a "});
 			/*
 			 * list.forEach((ele) ->{ System.out.println(ele.getUsername()); })
 			 */;
-			Date date = new Date(System.currentTimeMillis());
-			System.out.println(Utility.dateToString(Utility.fomatDate("2019/12/3 11:16:45")));
+			 dao.insertOne(a);
+			
 	}
 }

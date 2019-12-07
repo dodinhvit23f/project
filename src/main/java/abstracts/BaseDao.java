@@ -1,17 +1,15 @@
 package abstracts;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.persistence.EntityManager;
+import org.hibernate.Session;
 
-import common.Constant;
-import common.JpaConfig;
+import common.Hibernate;
 import common.Utility;
 import interfaces.BaseDaoInteface;
 
 public abstract  class BaseDao<Clazz> implements BaseDaoInteface<Clazz>{
-	private  EntityManager manager;
+	protected Session session;
 	private final Class<Clazz> clazz;
 	
 	public BaseDao(Class<Clazz> entity) {
@@ -19,65 +17,66 @@ public abstract  class BaseDao<Clazz> implements BaseDaoInteface<Clazz>{
 	}
 	
 	
-	public List<Clazz> selectAll() throws IOException {
-		this.manager = JpaConfig.getConnection();
-		List<Clazz> list = this.manager
-				.createQuery("select e from " +clazz.getSimpleName() + " e  WHERE  status = " + Constant.Status.ACTIVE, this.clazz)
+	public List<Clazz> selectAll() {
+		this.session = Hibernate.getConnection();
+		List<Clazz> list = this.session
+				.createQuery("select e from " +clazz.getSimpleName() + " e  ", this.clazz)
 				.getResultList();
-		Utility.closeObject(manager);
+		Utility.closeObject(session);
 		return list;
 	}
 	
 	protected abstract boolean vaildateRequest(Clazz clazz);
-	protected abstract void setChange(Clazz clazz);
+	protected abstract void setChange(Clazz oldclazz , Clazz newClazz);
 	
 	@Override
 	public void insertOne(Clazz clazz){
 		if(!vaildateRequest(clazz)) {
 			return ;
 		}
-		this.manager = JpaConfig.getConnection();
+		this.session = Hibernate.getConnection();
 		try {
-			this.manager.getTransaction().begin();
-			this.manager.persist(clazz);
-			this.manager.getTransaction().commit();
+			this.session.getTransaction().begin();
+			this.session.persist(clazz);
+			this.session.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			Utility.closeObject(manager);
+			Utility.closeObject(session);
 		}
 
 	}
 	
 	@Override
-	public void updateOne(Clazz clazz) {
+	public void updateOne(Clazz clazz, int id) {
 		if(!vaildateRequest(clazz)) {
 			return ;
 		}
 		try {
-			this.manager.getTransaction().begin();
-			
-			this.manager.getTransaction().commit();
+			this.session.getTransaction().begin();
+			Clazz oldCalzz = this.session.find(this.clazz, id);
+			setChange(oldCalzz,clazz);
+			this.session.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			Utility.closeObject(manager);
+			Utility.closeObject(session);
 		}
 	}
 
 	@Override
 	public void delete(String id) {
 		try {
-			this.manager.getTransaction().begin();
-			this.manager
+			this.session.getTransaction().begin();
+			this.session
 					.createQuery(
 							"DELETE " + this.clazz.getSimpleName() + "  WHERE id = ?")
 					.setParameter(1, id).executeUpdate();
-			this.manager.getTransaction().commit();
+			this.session.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			Utility.closeObject(manager);
+			Utility.closeObject(session);
 		}
 	}
 }

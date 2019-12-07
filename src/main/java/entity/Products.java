@@ -3,15 +3,11 @@ package entity;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,7 +32,7 @@ public class Products implements java.io.Serializable {
 	private Date importDate;
 	private Date expDate;
 	private String url;
-	private Set billses = new HashSet(0);
+	
 
 	public Products() {
 	}
@@ -53,18 +49,7 @@ public class Products implements java.io.Serializable {
 		this.url = url;
 	}
 
-	public Products(String name, double priceIn, double priceOut, String kind, int quantities, Date importDate,
-			Date expDate, String url, Set billses) {
-		this.name = name;
-		this.priceIn = priceIn;
-		this.priceOut = priceOut;
-		this.kind = kind;
-		this.quantities = quantities;
-		this.importDate = importDate;
-		this.expDate = expDate;
-		this.url = url;
-		this.billses = billses;
-	}
+	
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -152,13 +137,5 @@ public class Products implements java.io.Serializable {
 		this.url = url;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
-	public Set getBillses() {
-		return this.billses;
-	}
-
-	public void setBillses(Set billses) {
-		this.billses = billses;
-	}
 
 }

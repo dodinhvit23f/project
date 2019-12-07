@@ -1,11 +1,11 @@
 package common;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-
-import javax.persistence.EntityManager;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -40,11 +40,16 @@ public final class Utility {
 		return Double.parseDouble(number);
 	}
 
-	public static void closeObject(EntityManager manager)   {	
+	public static void closeObject(Closeable manager)   {	
 		if (manager == null) {
 			return;
 		}
-		manager.close();
+		try {
+			manager.close();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 
 	public static String stringCN(String string) {
