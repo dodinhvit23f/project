@@ -52,6 +52,7 @@ public abstract  class BaseDao<Clazz> implements BaseDaoInteface<Clazz>{
 		if(!vaildateRequest(clazz)) {
 			return ;
 		}
+		this.session = Hibernate.getConnection();
 		try {
 			this.session.getTransaction().begin();
 			Clazz oldCalzz = this.session.find(this.clazz, id);
