@@ -7,8 +7,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -56,12 +62,13 @@ public final class Utility {
 		}
 	}
 
-	public static String stringCN(String string) {
+	public static String NullToEmty(String string) {
 		return (string == null) ? "" : string;
 	}
+	
 
 	public static String formatString(String string) {
-		return stringCN(string).trim();
+		return NullToEmty(string).trim();
 	}
 
 	public static Date fomatDateTime(String date) throws Exception {
@@ -130,5 +137,19 @@ public final class Utility {
 			Utility.closeObject(is);
 			Utility.closeObject(os);
 		}
+	}
+	
+	public static String hash (String string) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		if(string == null) {
+			return "";
+		}
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		byte[] encodedhash = digest.digest(
+				string.getBytes(StandardCharsets.UTF_8));
+		return String.format("%064x", new BigInteger(1, encodedhash)); 
+	}
+	
+	public static byte[] base64Decode (String string){
+		return Base64.getDecoder().decode(string);
 	}
 }

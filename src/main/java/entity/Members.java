@@ -1,14 +1,11 @@
 package entity;
 
-import java.util.HashSet;
-import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,7 +23,6 @@ public class Members implements java.io.Serializable {
 	private String name;
 	private int point;
 	private String phoneNumber;
-	private Set billses = new HashSet(0);
 
 	public Members() {
 	}
@@ -36,12 +32,7 @@ public class Members implements java.io.Serializable {
 		this.point = point;
 	}
 
-	public Members(String name, int point, String phoneNumber, Set billses) {
-		this.name = name;
-		this.point = point;
-		this.phoneNumber = phoneNumber;
-		this.billses = billses;
-	}
+
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -82,13 +73,5 @@ public class Members implements java.io.Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "members")
-	public Set getBillses() {
-		return this.billses;
-	}
-
-	public void setBillses(Set billses) {
-		this.billses = billses;
-	}
-
+	
 }
