@@ -28,12 +28,14 @@ public class ProductsDao extends BaseDao<Products> {
 	}
 
 	@Override
-	protected void setChange(Products oldClazz , Products newClazz) {
+	protected void setChange(Products oldClazz, Products newClazz) {
 		oldClazz.setName(newClazz.getName());
-		oldClazz.setPriceOut(newClazz.getPriceOut());
 		oldClazz.setKind(newClazz.getKind());
-		oldClazz.setUrl(newClazz.getUrl());
+		//oldClazz.setUrl(newClazz.getUrl());
 		oldClazz.setPriceOut(newClazz.getPriceOut());
+		oldClazz.setQuantities(newClazz.getQuantities());
+		oldClazz.setExpDate(newClazz.getExpDate());
+		oldClazz.setStatus(newClazz.getStatus());
 	}
 
 }

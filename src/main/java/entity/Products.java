@@ -32,7 +32,7 @@ public class Products implements java.io.Serializable {
 	private Date importDate;
 	private Date expDate;
 	private String url;
-	
+	private String status;
 
 	public Products() {
 	}
@@ -136,6 +136,14 @@ public class Products implements java.io.Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
+	
+	@Column(name = "Status", nullable = false, length = 1)
+	public String getStatus() {
+		return this.status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 }

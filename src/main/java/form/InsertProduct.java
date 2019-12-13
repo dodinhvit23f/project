@@ -7,7 +7,6 @@ package form;
 
 import common.Constant;
 import common.Utility;
-import dao.ProductsDao;
 import entity.Products;
 import java.io.File;
 import java.util.logging.Level;
@@ -26,7 +25,7 @@ public class InsertProduct extends javax.swing.JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -1022410080527897087L;
-        private JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        private final JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 	/**
      * Creates new form InsertProduct
      */
@@ -150,11 +149,11 @@ public class InsertProduct extends javax.swing.JFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(74, 74, 74)
                                 .addComponent(jLabel2)
-                                .addGap(0, 38, Short.MAX_VALUE))
+                                .addGap(0, 46, Short.MAX_VALUE))
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(119, 119, 119)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -251,6 +250,7 @@ public class InsertProduct extends javax.swing.JFrame {
         product.setPriceOut(Utility.convertDouble(this.salePrice.getText()));
         product.setQuantities(PROPERTIES);
         product.setUrl(Constant.FilePath.IMAGE+this.name.getText()+".PNG");
+        product.setStatus("A");
         try {
            product.setExpDate(Utility.fomatDate(this.expDate.getText()));
            product.setImportDate(Utility.fomatDate(System.currentTimeMillis()));

@@ -15,8 +15,7 @@ public abstract  class BaseDao<Clazz> implements BaseDaoInteface<Clazz>{
 	public BaseDao(Class<Clazz> entity) {
 		this.clazz = entity;
 	}
-	
-	
+		
 	public List<Clazz> selectAll() {
 		this.session = Hibernate.getConnection();
 		List<Clazz> list = this.session
@@ -25,6 +24,10 @@ public abstract  class BaseDao<Clazz> implements BaseDaoInteface<Clazz>{
 		Utility.closeObject(session);
 		return list;
 	}
+        
+        public Session getSession(){
+            return Hibernate.getConnection();
+        }
 	
 	protected abstract boolean vaildateRequest(Clazz clazz);
 	protected abstract void setChange(Clazz oldclazz , Clazz newClazz);
