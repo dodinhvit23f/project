@@ -23,6 +23,7 @@ public class Main {
 			a.setExpDate(Utility.fomatDate("2019/12/3 11:16:45"));
 			a.setImportDate(Utility.fomatDate("2019/12/3 11:16:45"));
 			a.setPriceIn(90);
+			System.out.println(Utility.hash("tiendd")); 
 		//	dao.selectAll();
 		//	dao.insertOne(new String[] {"a "}, new String[] {"a "});
 			/*
