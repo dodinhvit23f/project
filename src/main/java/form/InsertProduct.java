@@ -8,6 +8,7 @@ package form;
 import common.Constant;
 import common.Utility;
 import entity.Products;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -251,14 +252,17 @@ public class InsertProduct extends javax.swing.JFrame {
         product.setQuantities(PROPERTIES);
         product.setUrl(Constant.FilePath.IMAGE+this.name.getText()+".PNG");
         product.setStatus("A");
+        boolean insert = false;
         try {
            product.setExpDate(Utility.fomatDate(this.expDate.getText()));
            product.setImportDate(Utility.fomatDate(System.currentTimeMillis()));
            Utility.copyFileUsingStream(jfc.getSelectedFile(),  new File(Constant.FilePath.IMAGE,this.name.getText()+".PNG"));
            HomeProduct.dao.insertOne(product);
+           insert = true;
         } catch (Exception ex) {
             Logger.getLogger(InsertProduct.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
     }//GEN-LAST:event_button2ActionPerformed
 
     private void quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantityActionPerformed
@@ -268,6 +272,7 @@ public class InsertProduct extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
