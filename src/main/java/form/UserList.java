@@ -19,6 +19,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import common.Constant.FilePath;
+
 /**
  *
  * @author LTC
@@ -224,8 +226,8 @@ public class UserList extends javax.swing.JFrame {
     String name;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {          
-            File file =new File("C:\\Users\\LTC\\Documents\\NetBeansProjects\\JavaProject2\\src\\Text\\UserName.txt");
-            File file1 =new File("C:\\Users\\LTC\\Documents\\NetBeansProjects\\JavaProject2\\src\\Text\\Role.txt");
+            File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
+            File file1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
             Scanner sc;
             Scanner sc1;
             sc = new Scanner(file);
