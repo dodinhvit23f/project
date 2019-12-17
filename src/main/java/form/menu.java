@@ -37,6 +37,7 @@ public class menu extends javax.swing.JFrame {
     int rand_id = ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
     DefaultTableModel model;
       DefaultTableModel model1;
+      double Total=0;
     /**
      * Creates new form menu
      */
@@ -331,7 +332,7 @@ public class menu extends javax.swing.JFrame {
         c.getId(),c.getName(),c.getQuantities(),c.getPrice(),c.getTotal()
         });         
      
-        double Total=0;
+        
         for(Choose_detail ch : Choose){
              Total += ch.Total;
         }
@@ -389,15 +390,24 @@ public class menu extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+    	
         int row = jTable2.getSelectedRow();
         String name = String.valueOf(jTable2.getValueAt(row, 1));
        for(int i = 0;i < Choose.size();i++) {   	   
     	  if(name == Choose.get(i).name) {
+    		  Choose.remove(i);
     		  model1.removeRow(row);
+    	  }
+    	  }
+      double Total1 = 0;
+    	  for(int i = 0; i< Choose.size();i++) {
+    		  Total1+= Double.valueOf((String)jTable2.getValueAt(i, 4));
+    		  System.out.println((String)jTable2.getValueAt(i, 4));
     		  
     	  }
+         jLabel3.setText(vn.format(Total1)+" VND");
     	   
-       }
+      
        
         
     }//GEN-LAST:event_jButton4ActionPerformed

@@ -95,7 +95,7 @@ public abstract  class BaseDao<Clazz> implements BaseDaoInteface {
 			this.session.getTransaction().begin();
 			this.session
 					.createQuery(
-							"UPDATE " + this.clazz.getSimpleName() + " SET status = " + Constant.Status.INACTIVE + " WHERE id = ?")
+							"DELETE FROM " + this.clazz.getSimpleName() + " WHERE id = ?")
 					.setParameter(1, id).executeUpdate();
 			this.session.getTransaction().commit();
 		} catch (Exception ex) {

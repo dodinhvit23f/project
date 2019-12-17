@@ -4,9 +4,9 @@
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.username">admin</property>
-        <property name="hibernate.connection.password">abcd@1234</property>
+        <property name="hibernate.connection.password">abc@1234</property>
         <property name="hibernate.connection.pool_size">1</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/doan?serverTimezone=UTC</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/javaproject2?serverTimezone=UTC</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
         <property name="hibernate.search.autoregister_listeners">true</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
