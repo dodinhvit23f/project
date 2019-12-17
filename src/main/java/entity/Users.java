@@ -1,10 +1,10 @@
 package entity;
-// Generated Dec 5, 2019 8:22:49 PM by Hibernate Tools 4.3.5.Final
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,6 +15,10 @@ import javax.persistence.Table;
 @Table(name = "users", catalog = "javaproject2")
 public class Users implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1665623060096770440L;
 	private Integer id;
 	private String name;
 	private String pwd;

@@ -1,15 +1,11 @@
 package entity;
-// Generated Dec 5, 2019 8:22:49 PM by Hibernate Tools 4.3.5.Final
 
-import java.util.HashSet;
-import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,11 +15,14 @@ import javax.persistence.Table;
 @Table(name = "members", catalog = "javaproject2")
 public class Members implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3580977862974574846L;
 	private Integer id;
 	private String name;
 	private int point;
 	private String phoneNumber;
-	private Set<Bills> billses = new HashSet<Bills>(0);
 
 	public Members() {
 	}
@@ -33,12 +32,7 @@ public class Members implements java.io.Serializable {
 		this.point = point;
 	}
 
-	public Members(String name, int point, String phoneNumber, Set<Bills> billses) {
-		this.name = name;
-		this.point = point;
-		this.phoneNumber = phoneNumber;
-		this.billses = billses;
-	}
+
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -79,13 +73,5 @@ public class Members implements java.io.Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "members")
-	public Set<Bills> getBillses() {
-		return this.billses;
-	}
-
-	public void setBillses(Set<Bills> billses) {
-		this.billses = billses;
-	}
-
+	
 }

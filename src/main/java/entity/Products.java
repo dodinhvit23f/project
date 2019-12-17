@@ -1,16 +1,13 @@
 package entity;
-// Generated Dec 5, 2019 8:22:49 PM by Hibernate Tools 4.3.5.Final
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,6 +19,10 @@ import javax.persistence.TemporalType;
 @Table(name = "products", catalog = "javaproject2")
 public class Products implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 817740430175707487L;
 	private Integer id;
 	private String name;
 	private double priceIn;
@@ -31,7 +32,7 @@ public class Products implements java.io.Serializable {
 	private Date importDate;
 	private Date expDate;
 	private String url;
-	private Set<Bills> billses = new HashSet<Bills>(0);
+	private String status;
 
 	public Products() {
 	}
@@ -48,18 +49,7 @@ public class Products implements java.io.Serializable {
 		this.url = url;
 	}
 
-	public Products(String name, double priceIn, double priceOut, String kind, int quantities, Date importDate,
-			Date expDate, String url, Set<Bills> billses) {
-		this.name = name;
-		this.priceIn = priceIn;
-		this.priceOut = priceOut;
-		this.kind = kind;
-		this.quantities = quantities;
-		this.importDate = importDate;
-		this.expDate = expDate;
-		this.url = url;
-		this.billses = billses;
-	}
+	
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -146,14 +136,14 @@ public class Products implements java.io.Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
-	public Set<Bills> getBillses() {
-		return this.billses;
+	
+	@Column(name = "Status", nullable = false, length = 1)
+	public String getStatus() {
+		return this.status;
 	}
-
-	public void setBillses(Set<Bills> billses) {
-		this.billses = billses;
+	
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

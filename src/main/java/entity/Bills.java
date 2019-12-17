@@ -1,3 +1,4 @@
+
 package entity;
 // Generated Dec 5, 2019 8:22:49 PM by Hibernate Tools 4.3.5.Final
 
@@ -112,3 +113,4 @@ public class Bills implements java.io.Serializable {
 	}
 
 }
+
