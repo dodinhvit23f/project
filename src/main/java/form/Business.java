@@ -11,6 +11,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import common.Constant.FilePath;
+
 /**
  *
  * @author LTC
@@ -138,8 +140,8 @@ public class Business extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try {          
-            File file =new File("C:\\Users\\LTC\\Documents\\NetBeansProjects\\JavaProject2\\src\\Text\\UserName.txt");
-            File file1 =new File("C:\\Users\\LTC\\Documents\\NetBeansProjects\\JavaProject2\\src\\Text\\Role.txt");
+            File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
+            File file1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
             Scanner sc;
             Scanner sc1;
             sc = new Scanner(file);

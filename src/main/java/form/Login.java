@@ -19,7 +19,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
+
+import common.Constant.FilePath;
 
 /**
  *
@@ -149,7 +152,7 @@ public class Login extends javax.swing.JFrame {
     Home h = new Home();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            File file =new File("C:\\Users\\LTC\\Documents\\NetBeansProjects\\JavaProject2\\src\\Text\\t1.txt");
+            File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\t1.txt");
             Scanner sc = new Scanner(file);
             List<String> UserList = new ArrayList<String>();
             while (sc.hasNextLine()){
@@ -167,7 +170,7 @@ public class Login extends javax.swing.JFrame {
                     if(rsl.next()){
                         this.hide();
                         new Home( rsl.getString("name"),rsl.getString("role")).show();
-                        File path = new File("C:\\Users\\LTC\\Documents\\NetBeansProjects\\JavaProject2\\src\\Text\\UserName.txt");
+                        File path = new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
                         try {
                             if(!path.exists()){
 
@@ -181,7 +184,7 @@ public class Login extends javax.swing.JFrame {
                             }
                             bw.close();
                             // ghi role vao` file
-                            File path1 = new File("C:\\Users\\LTC\\Documents\\NetBeansProjects\\JavaProject2\\src\\Text\\Role.txt");
+                            File path1 = new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
                             if(!path1.exists()){
 
                                     path1.createNewFile();
@@ -216,7 +219,7 @@ public class Login extends javax.swing.JFrame {
                     
                     if(rsl.next() && rsl.first()){
                         if(jCheckBox1.isSelected()){
-                            File path = new File("C:\\Users\\LTC\\Documents\\NetBeansProjects\\JavaProject2\\src\\Text\\t1.txt");
+                            File path = new File(FilePath.URL+"\\src\\main\\java\\Text\\t1.txt");
                             // if file doesnt exists, then create it
                             if (!path.exists()) {
                                 path.createNewFile();
@@ -229,7 +232,7 @@ public class Login extends javax.swing.JFrame {
                         }
                         this.hide();
                         new Home(rsl.getString("name"),rsl.getString("role")).show();
-                                                File path = new File("C:\\Users\\LTC\\Documents\\NetBeansProjects\\JavaProject2\\src\\Text\\UserName.txt");
+                        File path = new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
                         try {
                             if(!path.exists()){
 
@@ -243,7 +246,7 @@ public class Login extends javax.swing.JFrame {
                             }
                             bw.close();
                             // ghi role vao` file
-                            File path1 = new File("C:\\Users\\LTC\\Documents\\NetBeansProjects\\JavaProject2\\src\\Text\\Role.txt");
+                            File path1 = new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
                             if(!path1.exists()){
 
                                     path1.createNewFile();
