@@ -1,8 +1,4 @@
-/META-INF/
-/Main/
-/abstracts/
-/common/
-/dao/
 /entity/
+/dao/
 /form/
-/interfaces/
+/abstracts/
