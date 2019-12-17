@@ -2,5 +2,13 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
-	<table-filter match-name="directory" match-catalog="doan"></table-filter>
+	<table-filter match-name="bills" match-catalog="javaproject2"></table-filter>
+<<<<<<< HEAD
+	<table-filter match-name="members" match-catalog="javaproject2"></table-filter>
+	<table-filter match-name="products" match-catalog="javaproject2"></table-filter>
+=======
+	<table-filter match-name="products" match-catalog="javaproject2"></table-filter>
+	<table-filter match-name="members" match-catalog="javaproject2"></table-filter>
+>>>>>>> branch 'master' of https://github.com/dodinhvit23f/project
+	<table-filter match-name="users" match-catalog="javaproject2"></table-filter>
 </hibernate-reverse-engineering>
