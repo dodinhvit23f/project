@@ -250,13 +250,14 @@ public class UserList extends javax.swing.JFrame {
         Connection conn = null;
         Statement stm = null;
         ResultSet rsl = null;
-        Users u = new Users();
+       
         List<Users> list = new ArrayList<Users>();
         try{
             conn = ConnnectionUtil.getConnection();
             stm = conn.createStatement();
             rsl = stm.executeQuery("select * from users where name like'"+jTextField1.getText()+"' or role='"+jTextField1.getText()+"'  ORDER BY `users`.`ID` ASC");
             while(rsl.next()){
+            	Users u = new Users();
                 int id = rsl.getInt(1);
                 u.setId(id);
                 String name = rsl.getString(2);
@@ -281,7 +282,7 @@ public class UserList extends javax.swing.JFrame {
         }
         String blank="";
         for(Users us : list){
-            blank += (us.toString()+"\n");
+            blank += (us.toString()+System.getProperty("line.separator"));
         }
         jLabel3.setText(blank);
         
