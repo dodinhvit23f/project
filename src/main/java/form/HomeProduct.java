@@ -5,14 +5,28 @@
  */
 package form;
 
+import common.Utility;
 import dao.ProductsDao;
 import entity.Products;
+import swing.ButtonRenderer;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.Border;
+
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import swing.ButtonEditor;
 
 /**
  *
@@ -25,6 +39,7 @@ public class HomeProduct extends javax.swing.JFrame {
      */
     public HomeProduct() {
         initComponents();  
+        
             this.Reload();
          //   this.getContentPane().add(new JScrollPane(this.jTable1));
         }
@@ -36,10 +51,13 @@ public class HomeProduct extends javax.swing.JFrame {
         {
             //  Returning the Class of each column will allow different
             //  renderers to be used based on Class
+               @Override
             public Class getColumnClass(int column)
             {
                 return getValueAt(0, column).getClass();
             }
+            
+                        
         };
      
         dm.addColumn("Number");
@@ -51,16 +69,26 @@ public class HomeProduct extends javax.swing.JFrame {
         dm.addColumn("Import Date");
         dm.addColumn("Exp Date");
         dm.addColumn("Quantity");
-       
+        dm.addColumn("Action");
         for(Products ele : list){
-            dm.addRow(new Object[]  
-            {ele.getId(),new ImageIcon(ele.getUrl()),ele.getName(),ele.getKind(),ele.getPriceIn(),ele.getPriceOut(),ele.getImportDate(),ele.getExpDate(),ele.getQuantities()
-            });
+            try {
+                // this.jTable1.getColumn("Action").setCellEditor(new ButtonEditor(new JTextField()));
+                dm.addRow(new Object[]
+                {ele.getId(),new ImageIcon(ele.getUrl()),ele.getName(),ele.getKind(),ele.getPriceIn()
+                        ,ele.getPriceOut(),Utility.dateToString(ele.getImportDate()),Utility.dateToString(ele.getExpDate()),ele.getQuantities(),"delete"
+                });
+            } catch (Exception ex) {
+                Logger.getLogger(HomeProduct.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
         this.jTable1.setRowHeight(100);
       //  this.jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         this.jTable1.setModel(dm);
-        this.jTable1.setEnabled(false);
+        this.jTable1.getColumnModel().getColumn(9).setCellRenderer(new ButtonRenderer());
+        this.jTable1.getColumnModel().getColumn(9).setCellEditor(new ButtonEditor(new JTextField()));
+       
+       // this.jTable1.setEnabled(false);
     }
 
     /**
