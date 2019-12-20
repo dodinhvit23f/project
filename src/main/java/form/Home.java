@@ -57,6 +57,11 @@ public class Home extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         jButton1.setText("Storage");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         jButton2.setText("Bills");
@@ -172,8 +177,14 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        this.hide();
-        new UserList().show();
+        if(jLabel4.getText().equals("(manager)")){
+            this.hide();
+            new UserList().show();
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "You're not allowed to access this");
+        }        
+        
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -192,8 +203,18 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
+        if(jLabel4.getText().equals("(manager)")||jLabel4.getText().equals("(accounting)")){
+            this.hide();
+            new BillForm().show();
+        }else{
+           
+          JOptionPane.showMessageDialog(rootPane, "You're not allowed to access this");
+        } 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
