@@ -12,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+import common.Constant.FilePath;
+
 /**
  *
  * @author LTC
@@ -23,7 +25,18 @@ public class Home extends javax.swing.JFrame {
      */
     public Home(){       
          initComponents();
-
+         try {          
+         	File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
+             File file1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
+             Scanner sc;
+             Scanner sc1;
+             sc = new Scanner(file);
+             sc1 = new Scanner(file1);
+             jLabel2.setText(sc.nextLine());
+             jLabel4.setText("("+sc1.nextLine()+")");
+         } catch (FileNotFoundException ex) {
+             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+         }
          
     }
     boolean flag= false;
@@ -205,7 +218,7 @@ public class Home extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(jLabel4.getText().equals("(manager)")||jLabel4.getText().equals("(accounting)")){
             this.hide();
-            new BillForm().show();
+            //new BillForm().show();
         }else{
            
           JOptionPane.showMessageDialog(rootPane, "You're not allowed to access this");

@@ -5,6 +5,7 @@
  */
 package form;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -33,12 +34,8 @@ public class UserList extends javax.swing.JFrame {
     public UserList() {
         initComponents();
         this.setLocationRelativeTo(null);
-         model = (DefaultTableModel) jTable1.getModel();  
-         list();
+         model = (DefaultTableModel) jTable1.getModel();
     }
-
-    
-    int i=0;
     List <Users> uList = new ArrayList<Users>();
      DefaultTableModel model;
      
@@ -50,16 +47,23 @@ public class UserList extends javax.swing.JFrame {
             lib.getId(),lib.getName(),lib.getPwd(),lib.getRole(),
         });
     }
+    public void showTable2(){
+        Users lib = uslist.get(uslist.size()-1);
+        model.addRow(new Object[]{
+            lib.getId(),lib.getName(),lib.getPwd(),lib.getRole(),
+        });
+    }
       public void List(){
         Connection conn = null;
         Statement stm = null;
         ResultSet rsl = null;
-        Users u = new Users();
+        
         try{
             conn = ConnnectionUtil.getConnection();
             stm = conn.createStatement();
             rsl = stm.executeQuery("select * from users");
             while(rsl.next()){
+                Users u = new Users();
                 int id = rsl.getInt(1);
                 u.setId(id);
                 String name = rsl.getString(2);
@@ -82,7 +86,8 @@ public class UserList extends javax.swing.JFrame {
                     }
                 }
 
-        }  
+        }
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,7 +106,6 @@ public class UserList extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -160,8 +164,6 @@ public class UserList extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -191,10 +193,7 @@ public class UserList extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -205,7 +204,7 @@ public class UserList extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -214,19 +213,19 @@ public class UserList extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    String name;
+            //File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
+            //File file1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {          
-            File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
+        	File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
             File file1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
             Scanner sc;
             Scanner sc1;
@@ -239,34 +238,36 @@ public class UserList extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         Register r = new Register();
         r.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
-
+    List<Users> uslist = new ArrayList<Users>();
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        setTableEmpty();       
         Connection conn = null;
         Statement stm = null;
         ResultSet rsl = null;
-       
-        List<Users> list = new ArrayList<Users>();
+        
         try{
             conn = ConnnectionUtil.getConnection();
             stm = conn.createStatement();
-            rsl = stm.executeQuery("select * from users where name like'"+jTextField1.getText()+"' or role='"+jTextField1.getText()+"'  ORDER BY `users`.`ID` ASC");
+            //or role='"+jTextField1.getText()+"'
+            rsl = stm.executeQuery("select * from users where name ='"+jTextField1.getText()+"' or role='"+jTextField1.getText()+"'   ORDER BY `users`.`ID` ASC");
             while(rsl.next()){
-            	Users u = new Users();
+                Users us = new Users();
                 int id = rsl.getInt(1);
-                u.setId(id);
+                us.setId(id);
                 String name = rsl.getString(2);
-                u.setName(name);
+                us.setName(name);
                 String pwd = rsl.getString(3);
-                u.setPwd(pwd);
+                us.setPwd(pwd);
                 String role = rsl.getString(4);
-                u.setRole(role);
-                list.add(u);               
+                us.setRole(role);
+                uslist.add(us);
+                showTable2();
             }
         }catch(Exception e){
         JOptionPane.showMessageDialog(rootPane, e);
@@ -280,12 +281,6 @@ public class UserList extends javax.swing.JFrame {
                 }
        
         }
-        String blank="";
-        for(Users us : list){
-            blank += (us.toString()+System.getProperty("line.separator"));
-        }
-        jLabel3.setText(blank);
-        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTable1AncestorAdded
@@ -305,8 +300,7 @@ public class UserList extends javax.swing.JFrame {
             try{
                 conn = ConnnectionUtil.getConnection();
                 stm = conn.createStatement();
-                rsl = stm.executeQuery("select * from users where id="+jTable1.getValueAt(jTable1.getSelectedRow(), 0)+"");
-                        
+                rsl = stm.executeQuery("select * from users where id="+jTable1.getValueAt(jTable1.getSelectedRow(), 0)+"");                        
                 while(rsl.next()){
                     int id = rsl.getInt(1);
                     u.setId(id);
@@ -334,7 +328,12 @@ public class UserList extends javax.swing.JFrame {
                 this.hide();
         }
     }//GEN-LAST:event_jTable1MouseClicked
-
+    public void setTableEmpty(){
+        model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        uslist.clear();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -375,7 +374,6 @@ public class UserList extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
