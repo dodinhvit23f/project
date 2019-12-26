@@ -202,7 +202,7 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
-            File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\t1.txt");
+          	File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\t1.txt");
             Scanner sc = new Scanner(file);
             List<String> UserList = new ArrayList<String>();
             while (sc.hasNextLine()){
