@@ -16,17 +16,19 @@ import javax.swing.table.DefaultTableModel;
  * @author tien.lvt
  */
 public class HomeProduct extends javax.swing.JFrame {
-    public static  ProductsDao dao = new ProductsDao();
+
+    public static ProductsDao dao = new ProductsDao();
+
     /**
      * Creates new form HomeForm
      */
     public HomeProduct() {
-        initComponents();  
-            this.Reload();
-         //   this.getContentPane().add(new JScrollPane(this.jTable1));
+        initComponents();
+        this.Reload();
+        //   this.getContentPane().add(new JScrollPane(this.jTable1));
     }
-    
-    public void Reload(){
+
+    public void Reload() {
         List<Products> list = dao.selectAll();
         DefaultTableModel dm = new DefaultTableModel();
         dm.addColumn("Number");
@@ -39,9 +41,8 @@ public class HomeProduct extends javax.swing.JFrame {
         dm.addColumn("Exp Date");
         dm.addColumn("Quantity");
         int i = 0;
-        for(Products ele : list){
-            dm.addRow(new Object[] 
-            {i++,new ImageIcon(ele.getUrl()),ele.getName(),ele.getKind(),ele.getPriceIn(),ele.getPriceOut(),ele.getImportDate(),ele.getExpDate(),ele.getQuantities()
+        for (Products ele : list) {
+            dm.addRow(new Object[]{i++, new ImageIcon(ele.getUrl()), ele.getName(), ele.getKind(), ele.getPriceIn(), ele.getPriceOut(), ele.getImportDate(), ele.getExpDate(), ele.getQuantities()
             });
         }
         this.jTable1.setModel(dm);

@@ -27,15 +27,15 @@ import common.Constant.FilePath;
  *
  * @author LTC
  */
-       	//File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
-        //File file1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
+//File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
+//File file1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
 public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
     public Login() {
-        initComponents();      
+        initComponents();        
         setResizable(false);
     }
 
@@ -201,134 +201,136 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-          	File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\t1.txt");
-            Scanner sc = new Scanner(file);
-            List<String> UserList = new ArrayList<String>();
-            while (sc.hasNextLine()){
-                UserList.add(sc.nextLine());
-            }
-            Connection conn = null;
-            Statement stm = null;
-            ResultSet rsl = null;
-            Users u = new Users();
-            if(UserList.contains(jTextField2.getText())&& !jTextField2.getText().isEmpty() ){
-                try{
-                    conn = ConnnectionUtil.getConnection();
-                    stm = conn.createStatement();
-                    rsl = stm.executeQuery("select * from users where name='"+jTextField2.getText()+"'");
-                    if(rsl.next()){
-                        this.hide();
-                        new Home( rsl.getString("name"),rsl.getString("role")).show();
-                       	File path =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
-                        //File file1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
-                        try {
-                            if(!path.exists()){
-
-                                path.createNewFile();
-                            }
-                            String content =rsl.getString("name")+"\n";
-                            FileWriter fw = new FileWriter(path.getAbsoluteFile());
-                            BufferedWriter bw = new BufferedWriter(fw);
-                            if(!content.isEmpty()){
-                                bw.write(content);
-                            }
-                            bw.close();
-                            // ghi role vao` file
-                          	File path1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
-                            if(!path1.exists()){
-
-                                path1.createNewFile();
-                            }
-                            String content1 =rsl.getString("role")+"\n";
-                            FileWriter fw1 = new FileWriter(path1.getAbsoluteFile());
-                            BufferedWriter bw1 = new BufferedWriter(fw1);
-                            if(!content1.isEmpty()){
-                                bw1.write(content1);
-                            }
-                            bw1.close();
-                        }catch (IOException ex) {
-                            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                }catch(Exception e){
-                }finally{
-                    if(stm != null){
-                        try {
-                            stm.close();
-                        } catch (SQLException ex) {
-                            Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                }
-
-            }else{
-                try{
-                    conn = ConnnectionUtil.getConnection();
-                    stm = conn.createStatement();
-                    rsl = stm.executeQuery("select * from users where name='"+jTextField2.getText()+"' and pwd='"+jPasswordField2.getText()+"'");
-
-                    if(rsl.next() && rsl.first()){
-                        if(jCheckBox2.isSelected()){
-                          	File path =new File(FilePath.URL+"\\src\\main\\java\\Text\\t1.txt");
-                            // if file doesnt exists, then create it
-                            if (!path.exists()) {
-                                path.createNewFile();
-                            }
-                            String content =jTextField2.getText()+"\n";
-                            FileWriter fw = new FileWriter(path.getAbsoluteFile(),true);
-                            BufferedWriter bw = new BufferedWriter(fw);
-                            bw.write(content);
-                            bw.close();
-                        }
-                        this.hide();
-                        new Home(rsl.getString("name"),rsl.getString("role")).show();
-                      	File path =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
-                        try {
-                            if(!path.exists()){
-
-                                path.createNewFile();
-                            }
-                            String content =rsl.getString("name")+"\n";
-                            FileWriter fw = new FileWriter(path.getAbsoluteFile());
-                            BufferedWriter bw = new BufferedWriter(fw);
-                            if(!content.isEmpty()){
-                                bw.write(content);
-                            }
-                            bw.close();
-                            // ghi role vao` file
-                          	File path1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
-                            if(!path1.exists()){
-
-                                path1.createNewFile();
-                            }
-                            String content1 =rsl.getString("role")+"\n";
-                            FileWriter fw1 = new FileWriter(path1.getAbsoluteFile());
-                            BufferedWriter bw1 = new BufferedWriter(fw1);
-                            if(!content1.isEmpty()){
-                                bw1.write(content1);
-                            }
-                            bw1.close();
-                        }catch (IOException ex) {
-                            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }else{
-                        JOptionPane.showMessageDialog(rootPane, "Something's wrong");
-                    }
-                }catch(Exception e){
-                }finally{
-                    if(stm != null){
-                        try {
-                            stm.close();
-                        } catch (SQLException ex) {
-                            Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                }
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//          	File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\t1.txt");
+//            Scanner sc = new Scanner(file);
+//            List<String> UserList = new ArrayList<String>();
+//            while (sc.hasNextLine()){
+//                UserList.add(sc.nextLine());
+//            }
+//            Connection conn = null;
+//            Statement stm = null;
+//            ResultSet rsl = null;
+//            Users u = new Users();
+//            if(UserList.contains(jTextField2.getText())&& !jTextField2.getText().isEmpty() ){
+//                try{
+//                    conn = ConnnectionUtil.getConnection();
+//                    stm = conn.createStatement();
+//                    rsl = stm.executeQuery("select * from users where name='"+jTextField2.getText()+"'");
+//                    if(rsl.next()){
+//                        this.hide();
+//                        new Home( rsl.getString("name"),rsl.getString("role")).show();
+//                       	File path =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
+//                        //File file1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
+//                        try {
+//                            if(!path.exists()){
+//
+//                                path.createNewFile();
+//                            }
+//                            String content =rsl.getString("name")+"\n";
+//                            FileWriter fw = new FileWriter(path.getAbsoluteFile());
+//                            BufferedWriter bw = new BufferedWriter(fw);
+//                            if(!content.isEmpty()){
+//                                bw.write(content);
+//                            }
+//                            bw.close();
+//                            // ghi role vao` file
+//                          	File path1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
+//                            if(!path1.exists()){
+//
+//                                path1.createNewFile();
+//                            }
+//                            String content1 =rsl.getString("role")+"\n";
+//                            FileWriter fw1 = new FileWriter(path1.getAbsoluteFile());
+//                            BufferedWriter bw1 = new BufferedWriter(fw1);
+//                            if(!content1.isEmpty()){
+//                                bw1.write(content1);
+//                            }
+//                            bw1.close();
+//                        }catch (IOException ex) {
+//                            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    }
+//                }catch(Exception e){
+//                }finally{
+//                    if(stm != null){
+//                        try {
+//                            stm.close();
+//                        } catch (SQLException ex) {
+//                            Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    }
+//                }
+//
+//            }else{
+//                try{
+//                    conn = ConnnectionUtil.getConnection();
+//                    stm = conn.createStatement();
+//                    rsl = stm.executeQuery("select * from users where name='"+jTextField2.getText()+"' and pwd='"+jPasswordField2.getText()+"'");
+//
+//                    if(rsl.next() && rsl.first()){
+//                        if(jCheckBox2.isSelected()){
+//                          	File path =new File(FilePath.URL+"\\src\\main\\java\\Text\\t1.txt");
+//                            // if file doesnt exists, then create it
+//                            if (!path.exists()) {
+//                                path.createNewFile();
+//                            }
+//                            String content =jTextField2.getText()+"\n";
+//                            FileWriter fw = new FileWriter(path.getAbsoluteFile(),true);
+//                            BufferedWriter bw = new BufferedWriter(fw);
+//                            bw.write(content);
+//                            bw.close();
+//                        }
+//                        this.hide();
+//                        new Home(rsl.getString("name"),rsl.getString("role")).show();
+//                      	File path =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
+//                        try {
+//                            if(!path.exists()){
+//
+//                                path.createNewFile();
+//                            }
+//                            String content =rsl.getString("name")+"\n";
+//                            FileWriter fw = new FileWriter(path.getAbsoluteFile());
+//                            BufferedWriter bw = new BufferedWriter(fw);
+//                            if(!content.isEmpty()){
+//                                bw.write(content);
+//                            }
+//                            bw.close();
+//                            // ghi role vao` file
+//                          	File path1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
+//                            if(!path1.exists()){
+//
+//                                path1.createNewFile();
+//                            }
+//                            String content1 =rsl.getString("role")+"\n";
+//                            FileWriter fw1 = new FileWriter(path1.getAbsoluteFile());
+//                            BufferedWriter bw1 = new BufferedWriter(fw1);
+//                            if(!content1.isEmpty()){
+//                                bw1.write(content1);
+//                            }
+//                            bw1.close();
+//                        }catch (IOException ex) {
+//                            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    }else{
+//                        JOptionPane.showMessageDialog(rootPane, "Something's wrong");
+//                    }
+//                }catch(Exception e){
+//                }finally{
+//                    if(stm != null){
+//                        try {
+//                            stm.close();
+//                        } catch (SQLException ex) {
+//                            Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        NewJFrame a = new NewJFrame();
+        a.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -344,7 +346,8 @@ public class Login extends javax.swing.JFrame {
         this.hide();
         new ChangePwd().show();
     }//GEN-LAST:event_jButton5ActionPerformed
-    Home h = new Home();   
+    Home h = new Home();
+
     /**
      * @param args the command line arguments
      */

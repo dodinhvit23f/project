@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import common.Constant.FilePath;
+
 /**
  *
  * @author LTC
@@ -40,7 +41,7 @@ public class Business extends javax.swing.JFrame {
         DateFormat dateformt = new SimpleDateFormat("yyyy-MM-dd");
         dateformt.setTimeZone(TimeZone.getTimeZone("UTC"));
         dateChooserCombo1.setDateFormat(dateformt);
-        dateChooserCombo2.setDateFormat(dateformt);      
+        dateChooserCombo2.setDateFormat(dateformt);
         getRevenue();
     }
 
@@ -255,68 +256,70 @@ public class Business extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try {
-           	File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
-            File file1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
+            File file = new File(FilePath.URL + "\\src\\main\\java\\Text\\UserName.txt");
+            File file1 = new File(FilePath.URL + "\\src\\main\\java\\Text\\Role.txt");
             Scanner sc;
             Scanner sc1;
             sc = new Scanner(file);
             sc1 = new Scanner(file1);
             this.hide();
-            new Home(sc.nextLine(),sc1.nextLine()).show();
+            new Home(sc.nextLine(), sc1.nextLine()).show();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-    public void getCost(){
+    public void getCost() {
         Statement stm = null;
-        try{
-            Connection  conn = ConnnectionUtil.getConnection();
+        try {
+            Connection conn = ConnnectionUtil.getConnection();
             stm = conn.createStatement();
-            String sql = "SELECT SUM(p.PriceIn*t.quantity) from products as p INNER JOIN testbill as t on p.Id = t.Product_Id WHERE t.SaleDate BETWEEN '"+dateChooserCombo1.getText()+"' and '"+dateChooserCombo2.getText()+"' ";
-            ResultSet rsl = stm.executeQuery(sql); 
-            while(rsl.next()){
+            String sql = "SELECT SUM(p.PriceIn*t.quantity) from products as p INNER JOIN testbill as t on p.Id = t.Product_Id WHERE t.SaleDate BETWEEN '" + dateChooserCombo1.getText() + "' and '" + dateChooserCombo2.getText() + "' ";
+            ResultSet rsl = stm.executeQuery(sql);
+            while (rsl.next()) {
                 jTable1.setValueAt(rsl.getDouble(1), 0, 1);
             }
-            
-        }catch(Exception e){
-        JOptionPane.showMessageDialog(rootPane, e);;
-        }finally{
-                if(stm != null){
-                    try {
-                        stm.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
 
-        } 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);;
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
     }
-   public void getRevenue(){
+
+    public void getRevenue() {
         Statement stm = null;
-        try{
-            Connection  conn = ConnnectionUtil.getConnection();
+        try {
+            Connection conn = ConnnectionUtil.getConnection();
             stm = conn.createStatement();
-            String sql = "SELECT sum(quantity*price) FROM `testbill` WHERE SaleDate BETWEEN '"+dateChooserCombo1.getText()+"' and '"+dateChooserCombo2.getText()+"' ";
-            ResultSet rsl = stm.executeQuery(sql); 
-            while(rsl.next()){
+            String sql = "SELECT sum(quantity*price) FROM `testbill` WHERE SaleDate BETWEEN '" + dateChooserCombo1.getText() + "' and '" + dateChooserCombo2.getText() + "' ";
+            ResultSet rsl = stm.executeQuery(sql);
+            while (rsl.next()) {
                 jTable1.setValueAt(rsl.getDouble(1), 0, 0);
             }
             getCost();
-            jTable1.setValueAt((Double.parseDouble(jTable1.getValueAt(0, 0).toString())-Double.parseDouble(jTable1.getValueAt(0, 1).toString())), 0, 2);
+            jTable1.setValueAt((Double.parseDouble(jTable1.getValueAt(0, 0).toString()) - Double.parseDouble(jTable1.getValueAt(0, 1).toString())), 0, 2);
             //JOptionPane.showMessageDialog(rootPane, sql);
-        }catch(Exception e){
-        JOptionPane.showMessageDialog(rootPane, e);
-        }finally{
-                if(stm != null){
-                    try {
-                        stm.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
 
-        } 
+        }
     }
+
     /**
      * @param args the command line arguments
      */
