@@ -28,6 +28,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="E:/project/lib/jar/DateChooser.jar"/>
+	<classpathentry kind="lib" path="lib/jar/DateChooser.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
