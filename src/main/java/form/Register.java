@@ -196,9 +196,12 @@ public class Register extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Password can not be null");
             }else if(name.isEmpty()){
                 JOptionPane.showMessageDialog(rootPane, "Username can not be null");
+            }else if(jComboBox2.getSelectedItem().toString().equals("Pls select a role")){
+                JOptionPane.showMessageDialog(rootPane, "Pls choose a role");
             }
             else{
-                stm.executeUpdate("INSERT INTO users (name,pwd,role,rememberme) VALUES('"+name+"','"+pwd+"','"+role+"',0)");
+                String sql ="INSERT INTO users (name,pwd,role) VALUES('"+name+"','"+pwd+"','"+role+"')";
+                stm.executeUpdate(sql);
                 JOptionPane.showMessageDialog(rootPane, "Done");
                 this.hide();
                 new UserList().show();
@@ -206,6 +209,7 @@ public class Register extends javax.swing.JFrame {
         
         }catch(Exception e){
         System.out.println(e +" Khong thanh cong");
+        
     }finally{
             if(stm != null){
                 try {
@@ -219,8 +223,8 @@ public class Register extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        this.hide();
-        new UserList().show();
+           this.hide();
+           new UserList().show();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
