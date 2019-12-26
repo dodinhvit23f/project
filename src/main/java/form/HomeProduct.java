@@ -33,7 +33,9 @@ import javax.swing.table.TableCellRenderer;
  * @author tien.lvt
  */
 public class HomeProduct extends javax.swing.JFrame {
-    public static  ProductsDao dao = new ProductsDao();
+
+    public static ProductsDao dao = new ProductsDao();
+
     /**
      * Creates new form HomeForm
      */
