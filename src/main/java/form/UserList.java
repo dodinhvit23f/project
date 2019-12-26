@@ -253,28 +253,6 @@ public class UserList extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    String name;
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {          
-            File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
-            File file1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
-            Scanner sc;
-            Scanner sc1;
-            sc = new Scanner(file);
-            sc1 = new Scanner(file1);
-            this.hide();
-            new Home(sc.nextLine(),sc1.nextLine()).show();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-    
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        Register r = new Register();
-        r.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         setTableEmpty();
@@ -381,7 +359,8 @@ public class UserList extends javax.swing.JFrame {
         }    
     }//GEN-LAST:event_jButton1ActionPerformed
 
-   List<Users> uslist = new ArrayList<Users>();    public void setTableEmpty(){
+   List<Users> uslist = new ArrayList<Users>();
+   	public void setTableEmpty(){
         model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         uslist.clear();
