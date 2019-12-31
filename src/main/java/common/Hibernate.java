@@ -11,14 +11,11 @@ public class Hibernate {
 	private static Configuration cfg;
 
 	public static Session getConnection() {
+            SessionFactory factory = cfg.buildSessionFactory();
 		if (session == null) {
-			/*
-			 * if(cfg == null) { setConfig(); }
-			 */
-			SessionFactory factory = cfg.buildSessionFactory();
 			session = factory.openSession();
 		}
-		return session;
+		return factory.openSession();
 	}
 
 	public static void setClass(Class<?> clazz) {

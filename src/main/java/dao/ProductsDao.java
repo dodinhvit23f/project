@@ -4,6 +4,8 @@ import abstracts.BaseDao;
 import common.Hibernate;
 import common.Utility;
 import entity.Products;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductsDao extends BaseDao<Products> {
 	public ProductsDao() {
@@ -37,5 +39,22 @@ public class ProductsDao extends BaseDao<Products> {
 		oldClazz.setExpDate(newClazz.getExpDate());
 		oldClazz.setStatus(newClazz.getStatus());
 	}
+        
+        public List<Products> searchProduct( String string){
+            string = Utility.NullToEmty(string);
+            if(string == "")
+            return null;
+            this.session = Hibernate.getConnection();
+            List<Products> list = new ArrayList<Products>();
+            try{
+                list = this.session.createNativeQuery("select * from products where `Name` = ?1 OR `PriceIn` = ?1 OR `PriceOut` = ?1 OR `Kind` = ?1 OR `Quantities` = ?1 OR `ImportDate` = ?1 OR `ExpDate` = ?1 ", Products.class)
+                        .setParameter(1, string).getResultList();
+            } catch(Exception ex){
+            
+            } finally{
+                Utility.closeObject(session);
+            }
+            return list;
+        }
 
 }
