@@ -359,7 +359,8 @@ public class UserList extends javax.swing.JFrame {
         }    
     }//GEN-LAST:event_jButton1ActionPerformed
 
-   List<Users> uslist = new ArrayList<Users>();    public void setTableEmpty(){
+   List<Users> uslist = new ArrayList<Users>();
+   	public void setTableEmpty(){
         model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         uslist.clear();
