@@ -16,7 +16,7 @@ public class Main {
 		 * String [] field = {"username","phone" ,"area","rank","id"}; String [] param =
 		 * {"tiendd","16","Viet Nam","1","14"}; dao.updateOne(field, param)
 		 */
-
+		System.out.println(FilePath.URL);
 		//	dao.selectAll();
 		//	dao.insertOne(new String[] {"a "}, new String[] {"a "});
 			/*
