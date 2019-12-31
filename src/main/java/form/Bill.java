@@ -232,13 +232,12 @@ DefaultTableModel model;
             Statement statement = connect.createStatement();
             ResultSet result = statement.executeQuery("SELECT tmp.id,tmp.Quantities,products.Name as pro_name,products.PriceOut,tmp.DisCount FROM (select* from bills inner join bills_detail on bills.id=bills_detail.bill_id where bills.id = (SELECT MAX(id) FROM bills))tmp  inner join products on tmp.ProId = products.Id");        
             while(result.next()){               
-            int id = result.getInt("id");
-           
+            int id = result.getInt("id");          
             int Quantities = result.getInt("Quantities");
             String Pro_Name = result.getString("pro_name");
             double PriceOut = result.getDouble("PriceOut");
-            double DisCount = result.getDouble("DisCount");
-            double Total =(PriceOut*Quantities)-((PriceOut*Quantities)*(DisCount/100));
+          
+            double Total =PriceOut*Quantities;
             bills_detail bill = new bills_detail();
             
             bill.setId(id);
@@ -246,7 +245,7 @@ DefaultTableModel model;
             bill.setQuantities(Quantities);
             bill.setProduct_name(Pro_Name);
             bill.setPriceOut(PriceOut);
-            bill.setDisCount(DisCount);
+           
             bill.setTotal(Total);
             total+=Total;
         jLabel7.setText(String.valueOf(id));
@@ -295,6 +294,7 @@ DefaultTableModel model;
         // TODO add your handling code here:
          showMessageDialog(null, "Thanh Cong");
          this.dispose();
+         new Home().show();
     }//GEN-LAST:event_jButton2ActionPerformed
 public void showall(){
       
@@ -303,7 +303,7 @@ public void showall(){
                data_table.setRowHeight(data_table.getRowHeight()+1);
         bills_detail b=BillsList.get(i);
         model.addRow(new Object[]{
-        b.getId(),b.getQuantities(),b.getProduct_name(),b.getPriceOut(),b.getDisCount(),b.getTotal()
+        b.getId(),b.getQuantities(),b.getProduct_name(),b.getPriceOut(),b.getTotal()
         });
         }
     }

@@ -11,12 +11,12 @@ package form;
  */
 public class bills_detail {
     int id;
-    String Mem_Name;
+   
     String Product_name;
     double Quantities;
     double PriceOut;
     double Total;
-    double DisCount;
+   
 
     public int getId() {
         return id;
@@ -26,13 +26,9 @@ public class bills_detail {
         this.id = id;
     }
 
-    public String getMem_Name() {
-        return Mem_Name;
-    }
+  
 
-    public void setMem_Name(String Mem_Name) {
-        this.Mem_Name = Mem_Name;
-    }
+   
 
     public String getProduct_name() {
         return Product_name;
@@ -66,11 +62,5 @@ public class bills_detail {
         this.Total = Total;
     }
 
-    public double getDisCount() {
-        return DisCount;
-    }
-
-    public void setDisCount(double DisCount) {
-        this.DisCount = DisCount;
-    }
+   
 }

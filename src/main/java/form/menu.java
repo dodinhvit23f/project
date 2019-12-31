@@ -36,7 +36,7 @@ public class menu extends javax.swing.JFrame {
     List<Choose_detail>Choose = new ArrayList<Choose_detail>();
     Random r = new Random( System.currentTimeMillis() );
     int rand_id = ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
-     Choose_detail c = new Choose_detail();
+ 
     DefaultTableModel model;
       DefaultTableModel model1;
       DefaultTableModel model2;
@@ -269,9 +269,7 @@ public class menu extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 753, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,6 +279,10 @@ public class menu extends javax.swing.JFrame {
                                 .addComponent(jLabel3))
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(167, 167, 167))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(462, 462, 462)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,6 +367,7 @@ public class menu extends javax.swing.JFrame {
    
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
+        Choose_detail c = new Choose_detail();
         int quantities= 0;      
         int row =jTable1.getSelectedRow();
         int soluong = (Integer)model.getValueAt(row, 2);
@@ -388,6 +391,7 @@ public class menu extends javax.swing.JFrame {
                      }            
             }
         }    
+         if(done == true){
         c.id = Integer.valueOf(String.valueOf(jTable1.getValueAt(row, 0)));
         c.name = String.valueOf(jTable1.getValueAt(row, 1));
         c.Quantities = quantities;
@@ -401,7 +405,7 @@ public class menu extends javax.swing.JFrame {
            Total += c.Total;
         
            jLabel3.setText(vn.format(Total)+" VND");
-       
+         }
     }//GEN-LAST:event_jTable1MouseClicked
     
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -557,6 +561,7 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
     private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
         // TODO add your handling code here:
+            Choose_detail c = new Choose_detail();
         int quantities= 0;     
         int row =jTable3.getSelectedRow();
         int soluong = (Integer)model2.getValueAt(row, 2);
