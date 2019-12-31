@@ -434,7 +434,7 @@ public class menu extends javax.swing.JFrame {
             }
             }
            this.setVisible(false);
-           BillForm bill = new BillForm();
+           Bill bill = new Bill();
            bill.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
