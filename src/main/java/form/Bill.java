@@ -36,6 +36,7 @@ double total=0;
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm:ss");  
    LocalDateTime now = LocalDateTime.now();
    int billId =0;
+   int DeleteId;
 DefaultTableModel model;
     /**
      * Creates new form Bill
@@ -113,7 +114,7 @@ DefaultTableModel model;
         jLabel9.setText("cv");
 
         jButton1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        jButton1.setText("Cancel");
+        jButton1.setText("Delete");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -259,6 +260,7 @@ DefaultTableModel model;
             bill.setTotal(Total);
             total+=Total;
         jLabel7.setText(String.valueOf(id));
+        DeleteId = id;
             BillsList.add(bill);
             }
            
@@ -281,13 +283,13 @@ DefaultTableModel model;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-       int opsion = JOptionPane.showConfirmDialog(null, "Cancel?", "Confirm", JOptionPane.YES_NO_OPTION);
+       int opsion = JOptionPane.showConfirmDialog(null, "Delete?", "Confirm", JOptionPane.YES_NO_OPTION);
         if(opsion == 0){
     try {
         connect = Connect.createConnection();
         Statement st = connect.createStatement();
-        st.executeUpdate("Delete from bills_detail where bills_detail.bill_id = (SELECT bills.id from bills order by bills.id desc limit 1 );");
-       st.executeUpdate("Delete from bills order by bills.id desc limit 1;");
+        st.executeUpdate("Delete from bills_detail where bills_detail.bill_id = "+DeleteId);
+       st.executeUpdate("Delete from bills where id = "+DeleteId);
     } catch (SQLException ex) {
         Logger.getLogger(Bill.class.getName()).log(Level.SEVERE, null, ex);
     }
