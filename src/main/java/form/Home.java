@@ -238,6 +238,7 @@ public class Home extends javax.swing.JFrame {
         if(jLabel4.getText().equals("(manager)")||jLabel4.getText().equals("(accounting)")){
             this.hide();
             //new BillForm().show();
+            new ShowBills().show();
         }else{
 
             JOptionPane.showMessageDialog(rootPane, "You're not allowed to access this");

@@ -35,7 +35,7 @@ NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
 double total=0;
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm:ss");  
    LocalDateTime now = LocalDateTime.now();
-   
+   int billId =0;
 DefaultTableModel model;
     /**
      * Creates new form Bill
@@ -46,6 +46,11 @@ DefaultTableModel model;
         this.setLocationRelativeTo(null);
          model = (DefaultTableModel) data_table.getModel();
          
+    }
+    public Bill(int bill_id){
+         initComponents();
+    billId = bill_id;
+    model = (DefaultTableModel) data_table.getModel();
     }
 
     /**
@@ -226,11 +231,16 @@ DefaultTableModel model;
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-    
+     String query = "";
          try{
           connect = Connect.createConnection();
             Statement statement = connect.createStatement();
-            ResultSet result = statement.executeQuery("SELECT tmp.id,tmp.Quantities,products.Name as pro_name,products.PriceOut,tmp.DisCount FROM (select* from bills inner join bills_detail on bills.id=bills_detail.bill_id where bills.id = (SELECT MAX(id) FROM bills))tmp  inner join products on tmp.ProId = products.Id");        
+            if(billId ==0){
+             query ="SELECT tmp.id,tmp.Quantities,products.Name as pro_name,products.PriceOut,tmp.DisCount FROM (select* from bills inner join bills_detail on bills.id=bills_detail.bill_id where bills.id = (SELECT MAX(id) FROM bills))tmp  inner join products on tmp.ProId = products.Id"; 
+            }else{
+            query = "SELECT tmp.id,tmp.Quantities,products.Name as pro_name,products.PriceOut,tmp.DisCount FROM (select* from bills inner join bills_detail on bills.id=bills_detail.bill_id where bills.id = "+billId+")tmp  inner join products on tmp.ProId = products.Id"; 
+            }
+            ResultSet result = statement.executeQuery(query);
             while(result.next()){               
             int id = result.getInt("id");          
             int Quantities = result.getInt("Quantities");
@@ -282,8 +292,8 @@ DefaultTableModel model;
         Logger.getLogger(Bill.class.getName()).log(Level.SEVERE, null, ex);
     }
     this.setVisible(false);
-    menu menu = new menu();
-    menu.setVisible(true);
+    Home h = new Home();
+    h.show();
     this.dispose();
         }else{
         return;
