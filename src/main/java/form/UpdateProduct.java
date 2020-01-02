@@ -36,7 +36,7 @@ public class UpdateProduct extends javax.swing.JFrame {
         initComponents();
         this.setSize(802, 802);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,6 +61,7 @@ public class UpdateProduct extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
+        jTextField1 = new javax.swing.JTextField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -84,6 +85,11 @@ public class UpdateProduct extends javax.swing.JFrame {
         jLabel5.setText("Url Image");
 
         name.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameActionPerformed(evt);
+            }
+        });
 
         salePrice.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
 
@@ -118,6 +124,12 @@ public class UpdateProduct extends javax.swing.JFrame {
             }
         });
 
+        dateChooserCombo1.addSelectionChangedListener(new datechooser.events.SelectionChangedListener() {
+            public void onSelectionChange(datechooser.events.SelectionChangedEvent evt) {
+                dateChooserCombo1OnSelectionChange(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,7 +154,10 @@ public class UpdateProduct extends javax.swing.JFrame {
                             .addComponent(kind)
                             .addComponent(salePrice)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dateChooserCombo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jTextField1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(331, 331, 331)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -181,11 +196,13 @@ public class UpdateProduct extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addGap(21, 21, 21))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)))
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addContainerGap(258, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -224,7 +241,7 @@ public class UpdateProduct extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "You not select file yet ");
         }
         else{
-            JOptionPane.showMessageDialog(null, " File is choise");
+            JOptionPane.showMessageDialog(null, " File is choice");
         } 
         
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -249,10 +266,11 @@ public class UpdateProduct extends javax.swing.JFrame {
             this.jfc.setSelectedFile(new File(oldClazz.getUrl())); 
             try {
                  this.dateChooserCombo1.setText(Utility.dateToStringMDY(this.oldClazz.getImportDate()));
+                 this.jTextField1.setText(Utility.dateToString(oldClazz.getExpDate()));
             } catch (Exception ex) {
                 Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.dateChooserCombo1.setText("");
+            
         }
     }//GEN-LAST:event_IdFocusLost
 
@@ -261,6 +279,19 @@ public class UpdateProduct extends javax.swing.JFrame {
         home.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
+
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameActionPerformed
+
+    private void dateChooserCombo1OnSelectionChange(datechooser.events.SelectionChangedEvent evt) {//GEN-FIRST:event_dateChooserCombo1OnSelectionChange
+        try {
+            // TODO add your handling code here:
+            this.jTextField1.setText(Utility.dateToString(Utility.fomatDate(dateChooserCombo1.getSelectedDate().getTimeInMillis())));
+        } catch (Exception ex) {
+            Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_dateChooserCombo1OnSelectionChange
     	private static final long serialVersionUID = 1781270044444263719L;
 	private final JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 	private Products oldClazz = new Products();
@@ -327,6 +358,7 @@ public class UpdateProduct extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField kind;
     private javax.swing.JTextField name;
     private javax.swing.JTextField quantity;

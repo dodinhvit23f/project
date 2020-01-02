@@ -221,7 +221,7 @@ public class InsertProduct extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "You not select file yet ");
         }
         else{
-            JOptionPane.showMessageDialog(null, " File is choise");
+            JOptionPane.showMessageDialog(null, " File is choice");
         } 
     }//GEN-LAST:event_button1ActionPerformed
 
