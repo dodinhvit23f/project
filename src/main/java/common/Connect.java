@@ -11,7 +11,7 @@ import java.sql.DriverManager;
  * @author HaiDao
  */
 public class Connect {
-     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	private static final String DB_URL="jdbc:mysql://localhost:3306/javaproject2?serverTimezone=UTC&autoReconnect=true&useSSL=false";
 	
 	private static final String USER = "tiendd";
