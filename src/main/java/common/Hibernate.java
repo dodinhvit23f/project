@@ -20,9 +20,10 @@ public class Hibernate {
 
 	public static void setClass(Class<?> clazz) {
 		if (cfg == null) {
-			setConfig();	
+			setConfig();
+			cfg.addAnnotatedClass(clazz);
 		}
-            cfg.addAnnotatedClass(clazz);       
+
 	}
 
 	public static void setConfig() {
