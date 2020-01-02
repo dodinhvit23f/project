@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package form;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -13,18 +12,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Properties;
 import java.util.Scanner;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
 
 import common.Constant.FilePath;
+
+
 /**
  *
  * @author LTC
@@ -40,7 +37,7 @@ public class Business extends javax.swing.JFrame {
         DateFormat dateformt = new SimpleDateFormat("yyyy-MM-dd");
         dateformt.setTimeZone(TimeZone.getTimeZone("UTC"));
         dateChooserCombo1.setDateFormat(dateformt);
-        dateChooserCombo2.setDateFormat(dateformt);      
+        dateChooserCombo2.setDateFormat(dateformt);
         getRevenue();
     }
 
@@ -125,7 +122,7 @@ public class Business extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(282, 282, 282))
+                .addGap(254, 254, 254))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,9 +138,9 @@ public class Business extends javax.swing.JFrame {
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(25, 25, 25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(dateChooserCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -158,19 +155,23 @@ public class Business extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
                 .addGap(11, 11, 11)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3))
-                    .addComponent(dateChooserCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel2))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dateChooserCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -212,68 +213,70 @@ public class Business extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try {
-           	File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
-            File file1 =new File(FilePath.URL+"\\src\\main\\java\\Text\\Role.txt");
+            File file = new File(FilePath.URL + "\\src\\main\\java\\Text\\UserName.txt");
+            File file1 = new File(FilePath.URL + "\\src\\main\\java\\Text\\Role.txt");
             Scanner sc;
             Scanner sc1;
             sc = new Scanner(file);
             sc1 = new Scanner(file1);
             this.hide();
-            new Home(sc.nextLine(),sc1.nextLine()).show();
+            new Home(sc.nextLine(), sc1.nextLine()).show();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-    public void getCost(){
+    public void getCost() {
         Statement stm = null;
-        try{
-            Connection  conn = ConnnectionUtil.getConnection();
+        try {
+            Connection conn = ConnnectionUtil.getConnection();
             stm = conn.createStatement();
-            String sql = "SELECT SUM(p.PriceIn*t.quantity) from products as p INNER JOIN testbill as t on p.Id = t.Product_Id WHERE t.SaleDate BETWEEN '"+dateChooserCombo1.getText()+"' and '"+dateChooserCombo2.getText()+"' ";
-            ResultSet rsl = stm.executeQuery(sql); 
-            while(rsl.next()){
+            String sql = "SELECT SUM(p.PriceIn*t.quantity) from products as p INNER JOIN testbill as t on p.Id = t.Product_Id WHERE t.SaleDate BETWEEN '" + dateChooserCombo1.getText() + "' and '" + dateChooserCombo2.getText() + "' ";
+            ResultSet rsl = stm.executeQuery(sql);
+            while (rsl.next()) {
                 jTable1.setValueAt(rsl.getDouble(1), 0, 1);
             }
-            
-        }catch(Exception e){
-        JOptionPane.showMessageDialog(rootPane, e);;
-        }finally{
-                if(stm != null){
-                    try {
-                        stm.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
 
-        } 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);;
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
     }
-   public void getRevenue(){
+
+    public void getRevenue() {
         Statement stm = null;
-        try{
-            Connection  conn = ConnnectionUtil.getConnection();
+        try {
+            Connection conn = ConnnectionUtil.getConnection();
             stm = conn.createStatement();
-            String sql = "SELECT sum(quantity*price) FROM `testbill` WHERE SaleDate BETWEEN '"+dateChooserCombo1.getText()+"' and '"+dateChooserCombo2.getText()+"' ";
-            ResultSet rsl = stm.executeQuery(sql); 
-            while(rsl.next()){
+            String sql = "SELECT sum(quantity*price) FROM `testbill` WHERE SaleDate BETWEEN '" + dateChooserCombo1.getText() + "' and '" + dateChooserCombo2.getText() + "' ";
+            ResultSet rsl = stm.executeQuery(sql);
+            while (rsl.next()) {
                 jTable1.setValueAt(rsl.getDouble(1), 0, 0);
             }
             getCost();
-            jTable1.setValueAt((Double.parseDouble(jTable1.getValueAt(0, 0).toString())-Double.parseDouble(jTable1.getValueAt(0, 1).toString())), 0, 2);
+            jTable1.setValueAt((Double.parseDouble(jTable1.getValueAt(0, 0).toString()) - Double.parseDouble(jTable1.getValueAt(0, 1).toString())), 0, 2);
             //JOptionPane.showMessageDialog(rootPane, sql);
-        }catch(Exception e){
-        JOptionPane.showMessageDialog(rootPane, e);
-        }finally{
-                if(stm != null){
-                    try {
-                        stm.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
 
-        } 
+        }
     }
+
     /**
      * @param args the command line arguments
      */

@@ -8,7 +8,7 @@ package form;
 import common.Utility;
 import dao.ProductsDao;
 import entity.Products;
-import swing.ButtonRenderer;
+import swing.ButtonColumn;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,27 +26,30 @@ import javax.swing.border.Border;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import swing.ButtonEditor;
+
 
 /**
  *
  * @author tien.lvt
  */
 public class HomeProduct extends javax.swing.JFrame {
-    public static  ProductsDao dao = new ProductsDao();
+
+    public static ProductsDao dao =  new ProductsDao();
+
     /**
      * Creates new form HomeForm
      */
     public HomeProduct() {
         initComponents();  
-        
-            this.Reload();
+        this.jTable1.requestFocus();
+            this.Reload(dao.selectAll());
          //   this.getContentPane().add(new JScrollPane(this.jTable1));
+        
         }
     
     
-    public void Reload(){
-        List<Products> list = dao.selectAll();
+    public void Reload(List<Products> list){
+        
        DefaultTableModel dm = new DefaultTableModel()
         {
             //  Returning the Class of each column will allow different
@@ -81,12 +84,18 @@ public class HomeProduct extends javax.swing.JFrame {
                 Logger.getLogger(HomeProduct.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        this.jTable1.clearSelection();
         this.jTable1.setRowHeight(100);
       //  this.jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         this.jTable1.setModel(dm);
-        this.jTable1.getColumnModel().getColumn(9).setCellRenderer(new ButtonRenderer());
-        this.jTable1.getColumnModel().getColumn(9).setCellEditor(new ButtonEditor(new JTextField()));
+        new ButtonColumn (this.jTable1,9,ss ->{ 
+        	int row =  this.jTable1.getSelectedRow();
+        	Object value = this.jTable1.getValueAt(row, 0);
+        	if(JOptionPane.showConfirmDialog(null, " Do you want to delete this") == JOptionPane.YES_OPTION) {
+        		dao.delete(String.valueOf(value));
+                        this.Reload(dao.selectAll());
+        	}
+        });
        
        // this.jTable1.setEnabled(false);
     }
@@ -105,8 +114,15 @@ public class HomeProduct extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        search = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -129,6 +145,11 @@ public class HomeProduct extends javax.swing.JFrame {
         });
 
         jButton2.setText("Reload");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Update");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -137,30 +158,50 @@ public class HomeProduct extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Search");
+
+        search.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchFocusLost(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(123, 123, 123)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(107, 107, 107)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(125, 125, 125)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 48, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -169,13 +210,34 @@ public class HomeProduct extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        InsertProduct insert = new InsertProduct();
        insert.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         UpdateProduct update  = new UpdateProduct();
         update.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Reload(dao.selectAll());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void searchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFocusLost
+        List<Products> list = dao.searchProduct(this.search.getText());
+        if(list == null){
+            JOptionPane.showMessageDialog(null, "Can't find");
+        }
+        Reload(list);
+    }//GEN-LAST:event_searchFocusLost
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        Home home = new Home();
+        home.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -217,7 +279,9 @@ public class HomeProduct extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField search;
     // End of variables declaration//GEN-END:variables
 }
