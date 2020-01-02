@@ -34,15 +34,17 @@ import javax.swing.table.TableCellRenderer;
  */
 public class HomeProduct extends javax.swing.JFrame {
 
-    public static ProductsDao dao = new ProductsDao();
+    public static ProductsDao dao =  new ProductsDao();
 
     /**
      * Creates new form HomeForm
      */
     public HomeProduct() {
         initComponents();  
+        this.jTable1.requestFocus();
             this.Reload(dao.selectAll());
          //   this.getContentPane().add(new JScrollPane(this.jTable1));
+        
         }
     
     
@@ -91,6 +93,7 @@ public class HomeProduct extends javax.swing.JFrame {
         	Object value = this.jTable1.getValueAt(row, 0);
         	if(JOptionPane.showConfirmDialog(null, " Do you want to delete this") == JOptionPane.YES_OPTION) {
         		dao.delete(String.valueOf(value));
+                        this.Reload(dao.selectAll());
         	}
         });
        
@@ -202,12 +205,14 @@ public class HomeProduct extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        InsertProduct insert = new InsertProduct();
        insert.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         UpdateProduct update  = new UpdateProduct();
         update.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

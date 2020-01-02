@@ -5,12 +5,19 @@
  */
 package form;
 
+import common.Constant;
 import common.Utility;
 import entity.Products;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
@@ -49,11 +56,17 @@ public class UpdateProduct extends javax.swing.JFrame {
         kind = new javax.swing.JTextField();
         quantity = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        ExpDate = new javax.swing.JTextField();
         Id = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         jLabel1.setText("Name");
@@ -81,8 +94,6 @@ public class UpdateProduct extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         jLabel6.setText("Exp Date");
-
-        ExpDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
 
         Id.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -130,8 +141,8 @@ public class UpdateProduct extends javax.swing.JFrame {
                             .addComponent(name)
                             .addComponent(kind)
                             .addComponent(salePrice)
-                            .addComponent(ExpDate, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateChooserCombo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(331, 331, 331)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -164,28 +175,44 @@ public class UpdateProduct extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(ExpDate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel6)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(246, Short.MAX_VALUE))
+                .addContainerGap(260, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        oldClazz.setName(this.name.getText());
-        oldClazz.setKind(this.kind.getText());
-        oldClazz.setPriceOut(Utility.convertDouble(this.salePrice.getText()));
-        oldClazz.setQuantities(Utility.convertInt(this.quantity.getText()));
-        oldClazz.setStatus("O");
-        try {
-                oldClazz.setExpDate(Utility.fomatDate(this.ExpDate.getText()));
-                Utility.copyFileUsingStream(jfc.getSelectedFile(), new File(oldClazz.getUrl()));
-                HomeProduct.dao.updateOne(oldClazz, Utility.convertInt(this.Id.getText()));
-        } catch (Exception ex) {
-
+        if(this.oldClazz.getStatus().equals("A")
+                ||(System.currentTimeMillis() - this.oldClazz.getImportDate().getTime())/86400 < 2 ){
+            this.oldClazz.setName(this.name.getText());
+            this.oldClazz.setKind(this.kind.getText());
+            this.oldClazz.setPriceOut(Utility.convertDouble(this.salePrice.getText()));
+            this.oldClazz.setQuantities(Utility.convertInt(this.quantity.getText()));
+            this.oldClazz.setStatus("O");
+            try {
+                this.oldClazz.setExpDate(Utility.fomatDate(this.dateChooserCombo1.getSelectedDate().getTimeInMillis()));
+                if( jfc.getSelectedFile() != null){
+                   this.oldClazz.setUrl(Constant.FilePath.IMAGE+this.name.getText()+".PNG");
+                } else{
+                throw new Exception ("None file is choose");
+                }
+                Utility.copyFileUsingStream(jfc.getSelectedFile(), new File(this.oldClazz.getUrl()));
+                HomeProduct.dao.updateOne(this.oldClazz, Utility.convertInt(this.Id.getText()));
+                JOptionPane.showMessageDialog(null,  "Add product success");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,  "Add product fail");
+                Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null,  "Product can't be change");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -193,6 +220,13 @@ public class UpdateProduct extends javax.swing.JFrame {
         jfc.addChoosableFileFilter(new FileNameExtensionFilter("JPG image", "JPG"));
 	jfc.addChoosableFileFilter(new FileNameExtensionFilter("PNG image", "PNG"));
 	jfc.showOpenDialog(null);
+        if(this.jfc.getSelectedFile()== null){
+            JOptionPane.showMessageDialog(null, "You not select file yet ");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, " File is choise");
+        } 
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void IdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_IdFocusLost
@@ -200,7 +234,7 @@ public class UpdateProduct extends javax.swing.JFrame {
             return ;
         Session session = null;
         try {
-               session = HomeProduct.dao.getSession();
+            session = HomeProduct.dao.getSession();
             this.oldClazz = session.find(Products.class, Utility.convertInt(this.Id.getText()));
         } catch (Exception ex) {
 
@@ -212,14 +246,21 @@ public class UpdateProduct extends javax.swing.JFrame {
             this.salePrice.setText(String.valueOf(oldClazz.getPriceOut()));
             this.kind.setText(oldClazz.getKind());
             this.quantity.setText(String.valueOf(oldClazz.getQuantities()));
-            this.jfc.setSelectedFile(new File(oldClazz.getUrl()));
+            this.jfc.setSelectedFile(new File(oldClazz.getUrl())); 
             try {
-                this.ExpDate.setText(Utility.dateToString(oldClazz.getExpDate()));
+                 this.dateChooserCombo1.setText(Utility.dateToStringMDY(this.oldClazz.getImportDate()));
             } catch (Exception ex) {
                 Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
             }
+            this.dateChooserCombo1.setText("");
         }
     }//GEN-LAST:event_IdFocusLost
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        HomeProduct home = new HomeProduct();
+        home.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
     	private static final long serialVersionUID = 1781270044444263719L;
 	private final JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 	private Products oldClazz = new Products();
@@ -275,8 +316,8 @@ public class UpdateProduct extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ExpDate;
     private javax.swing.JTextField Id;
+    private datechooser.beans.DateChooserCombo dateChooserCombo1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;

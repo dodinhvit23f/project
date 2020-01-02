@@ -2,12 +2,15 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -47,7 +50,7 @@
                       <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="salePrice" max="32767" attributes="0"/>
                   <Component id="kind" pref="323" max="32767" attributes="0"/>
                   <Component id="name" max="32767" attributes="0"/>
@@ -55,7 +58,7 @@
                   <Component id="button2" alignment="0" max="32767" attributes="0"/>
                   <Component id="button1" alignment="0" pref="323" max="32767" attributes="0"/>
                   <Component id="quantity" alignment="0" max="32767" attributes="0"/>
-                  <Component id="expDate" max="32767" attributes="0"/>
+                  <Component id="dateChooserCombo1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel9" min="-2" pref="108" max="-2" attributes="0"/>
@@ -95,15 +98,20 @@
                   <Component id="quantity" alignment="0" min="-2" pref="58" max="-2" attributes="0"/>
                   <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="expDate" alignment="3" min="-2" pref="53" max="-2" attributes="0"/>
-                      <Component id="jLabel9" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel8" min="-2" pref="53" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jLabel8" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel9" min="-2" pref="43" max="-2" attributes="0"/>
+                          <Component id="dateChooserCombo1" min="-2" pref="49" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="button1" min="-2" pref="36" max="-2" attributes="0"/>
                   <Component id="jLabel6" min="-2" pref="56" max="-2" attributes="0"/>
@@ -127,9 +135,6 @@
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
         <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
       </AccessibilityProperties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="kind">
       <Properties>
@@ -137,9 +142,6 @@
           <Font name="Arial Rounded MT Bold" size="14" style="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kindActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -173,9 +175,6 @@
           <Font name="Arial Rounded MT Bold" size="14" style="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importPriceActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="salePrice">
       <Properties>
@@ -211,7 +210,6 @@
     </Component>
     <Component class="java.awt.Button" name="button2">
       <Properties>
-        <Property name="actionCommand" type="java.lang.String" value="Insert"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
           <Color id="Default Cursor"/>
         </Property>
@@ -219,6 +217,7 @@
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Insert"/>
+        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
       </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button2ActionPerformed"/>
@@ -233,11 +232,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="quantity">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quantityActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="expDate">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
@@ -252,8 +246,10 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial Rounded MT Bold" size="10" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="YYYY/mm/dd"/>
+        <Property name="text" type="java.lang.String" value="MM/DD/YYYY"/>
       </Properties>
+    </Component>
+    <Component class="datechooser.beans.DateChooserCombo" name="dateChooserCombo1">
     </Component>
   </SubComponents>
 </Form>
