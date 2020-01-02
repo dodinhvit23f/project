@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -120,17 +121,20 @@ public class addmembers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String Name = txtname.getText();
-        int Point = Integer.valueOf(txtpoint.getText());
-        String PhoneNumbers = txtphonenumbers.getText();
+        
         con = connectDB.createConnection();
         try {
+            String Name = txtname.getText();
+            int Point = Integer.valueOf(txtpoint.getText());
+            String PhoneNumbers = txtphonenumbers.getText();
             Statement st = con.createStatement();
             st.executeUpdate("Insert into members (Name , Point , PhoneNumber) values ('"+Name+"',"+Point+","+PhoneNumbers+")");
             this.hide();
             new members().show();
-        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "them thanh cong");
+        } catch (Exception ex) {
             Logger.getLogger(addmembers.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "them khong thanh cong");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
