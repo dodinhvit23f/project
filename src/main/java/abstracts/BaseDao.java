@@ -73,7 +73,7 @@ public abstract  class BaseDao<Clazz> implements BaseDaoInteface<Clazz>{
 		this.session = Hibernate.getConnection();
 		try {
 			this.session.getTransaction().begin();
-			this.session.delete(this.session.find(this.clazz, Utility.convertInt(id)));
+			this.session.delete(this.session.find(clazz, Utility.convertInt(id)));
 			this.session.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
