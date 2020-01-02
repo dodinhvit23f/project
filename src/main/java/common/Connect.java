@@ -14,8 +14,8 @@ public class Connect {
      private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	private static final String DB_URL="jdbc:mysql://localhost:3306/javaproject2?autoReconnect=true&useSSL=false";
 	
-	private static final String USER = "admin";
-	private static final String PASSWORD = "abc@1234";
+	private static final String USER = "tiendd";
+	private static final String PASSWORD = "1234";
 	
 	private static Connection conn;
 	
