@@ -357,7 +357,7 @@ public class menu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -413,8 +413,9 @@ public class menu extends javax.swing.JFrame {
     	Connection connect = null;
     	connect = Connect.createConnection();
     	try {
+            for(int i = 0; i<3;i++){
     		Statement statement = connect.createStatement();
-            String query = " Select products.Id, products.Name ,products.Quantities,products.PriceOut,products.ExpDate from products where products.Id = (Select bills_detail.ProId from bills_detail group by ProId order by SUM(Quantities) DESC limit 1) ";
+            String query = " Select products.Id, products.Name ,products.Quantities,products.PriceOut,products.ExpDate from products where products.Id = (Select bills_detail.ProId from bills_detail group by ProId order by SUM(Quantities) DESC limit "+i+",1) ";
             ResultSet result = statement.executeQuery(query);   
             while(result.next()) {
             	int Id = result.getInt("Id");
@@ -425,7 +426,7 @@ public class menu extends javax.swing.JFrame {
             	 model2.addRow(new Object[]{
                          Id,Name,Quantities,Price,date
                          });
-            	
+            }
             }
     	}catch(Exception e){
             Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, e);
