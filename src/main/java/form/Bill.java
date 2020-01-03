@@ -5,6 +5,7 @@
  */
 package form;
 import common.Connect;
+import java.awt.Color;
 import java.util.List;
 import java.text.*;
 import java.sql.Connection;
@@ -284,6 +285,9 @@ DefaultTableModel model;
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        if(Check != ""){
+        jButton8.setBackground(Color.GRAY);
+        }
         String date="";
      String query = "";
          try{
@@ -348,7 +352,7 @@ DefaultTableModel model;
             }
             this.setVisible(false);
             Home h = new Home();
-            h.show();
+            h.setVisible(true);
             this.dispose();
         }else{
             return;
