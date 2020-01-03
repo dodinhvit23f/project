@@ -39,6 +39,7 @@ DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm:ss");
    int DeleteId;
    String Name = "";
    String PhoneNum = "";
+   String Check = "";
 DefaultTableModel model;
     /**
      * Creates new form Bill
@@ -50,9 +51,10 @@ DefaultTableModel model;
          model = (DefaultTableModel) data_table.getModel();
          
     }
-    public Bill(int bill_id){
+    public Bill(int bill_id,String xacnhan){
          initComponents();
     billId = bill_id;
+    Check = xacnhan;
     model = (DefaultTableModel) data_table.getModel();
     }
     public Bill(String name,String Phone){
@@ -355,6 +357,7 @@ DefaultTableModel model;
 
     private void jButton8jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8jButton2ActionPerformed
         // TODO add your handling code here:
+        if(Check == ""){
         Connection connect = null;
         try {
 
@@ -377,6 +380,9 @@ DefaultTableModel model;
         this.setVisible(false);
         new Home().setVisible(true);
         showMessageDialog(null, "Thanh Cong");
+        }else{
+            return;
+        }
     }//GEN-LAST:event_jButton8jButton2ActionPerformed
 
     private void jButton7jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7jButton3ActionPerformed

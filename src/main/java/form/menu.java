@@ -54,10 +54,10 @@ public class menu extends javax.swing.JFrame {
         model1 = (DefaultTableModel) jTable2.getModel();
         model2 = (DefaultTableModel) jTable3.getModel();      
         CountDB();
-        if(count % 5 == 0){
-            sotrang = count/5;
+        if(count % 7 == 0){
+            sotrang = count/7;
         }else{
-         sotrang = count/5+1;
+         sotrang = count/7+1;
         }
         LoadData(trang);
         jLabel6.setText("1/"+sotrang);
@@ -744,11 +744,11 @@ public class menu extends javax.swing.JFrame {
         model.removeRow(i);
         }
        Connection connect = null;
-       long soluong = trang *5 -5;
+       long soluong = trang *7 -7;
         try{
  connect = Connect.createConnection();
             Statement statement = connect.createStatement();           
-          String  query = " Select * from products limit "+soluong+" ,5  ";           
+          String  query = " Select * from products limit "+soluong+" ,7  ";           
             ResultSet result = statement.executeQuery(query);            
             while(result.next()){ 
             int id = result.getInt("Id");
