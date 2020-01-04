@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import common.Constant.FilePath;
+import common.Utility;
 
 /**
  *
@@ -266,7 +267,7 @@ public class Login extends javax.swing.JFrame {
                 try{
                     conn = ConnnectionUtil.getConnection();
                     stm = conn.createStatement();
-                    rsl = stm.executeQuery("select * from users where name='"+jTextField2.getText()+"' and pwd='"+jPasswordField2.getText()+"'");
+                    rsl = stm.executeQuery("select * from users where name='"+jTextField2.getText()+"' and pwd='"+Utility.hash(jPasswordField2.getText())+"'");
 
                     if(rsl.next() && rsl.first()){
                         if(jCheckBox2.isSelected()){

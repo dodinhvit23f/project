@@ -8,9 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductsDao extends BaseDao<Products> {
+        private static boolean isSet = true;
 	public ProductsDao() {
 		super(Products.class);
+                if(isSet){
 		Hibernate.setClass(Products.class);
+                isSet = false;
+                }
+                
 	}
 
 	@Override

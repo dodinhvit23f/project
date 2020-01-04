@@ -5,6 +5,7 @@
  */
 package form;
 
+import common.Utility;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -232,7 +233,7 @@ public class Register extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Pls choose a role");
             }
             else{
-                String sql ="INSERT INTO users (name,pwd,role) VALUES('"+name+"','"+pwd+"','"+role+"')";
+                String sql ="INSERT INTO users (name,pwd,role) VALUES('"+name+"','"+Utility.hash(pwd)+"','"+role+"')";
                 stm.executeUpdate(sql);
                 JOptionPane.showMessageDialog(rootPane, "Done");
                 this.hide();

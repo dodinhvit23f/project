@@ -16,15 +16,31 @@ import javax.swing.table.DefaultTableModel;
  * @author tien.lvt
  */
 public class HomeProduct extends javax.swing.JFrame {
+<<<<<<< HEAD
     public static  ProductsDao dao = new ProductsDao();
+=======
+
+    public static ProductsDao dao =  new ProductsDao();
+
+>>>>>>> refs/remotes/origin/HuuTu
     /**
      * Creates new form HomeForm
      */
     public HomeProduct() {
         initComponents();  
+<<<<<<< HEAD
             this.Reload();
+=======
+        this.jTable1.requestFocus();
+            this.Reload(dao.selectAll());
+>>>>>>> refs/remotes/origin/HuuTu
          //   this.getContentPane().add(new JScrollPane(this.jTable1));
+<<<<<<< HEAD
     }
+=======
+        
+        }
+>>>>>>> refs/remotes/origin/HuuTu
     
     public void Reload(){
         List<Products> list = dao.selectAll();
@@ -45,7 +61,20 @@ public class HomeProduct extends javax.swing.JFrame {
             });
         }
         this.jTable1.setModel(dm);
+<<<<<<< HEAD
         this.setEnabled(false);
+=======
+        new ButtonColumn (this.jTable1,9,ss ->{ 
+        	int row =  this.jTable1.getSelectedRow();
+        	Object value = this.jTable1.getValueAt(row, 0);
+        	if(JOptionPane.showConfirmDialog(null, " Do you want to delete this") == JOptionPane.YES_OPTION) {
+        		dao.delete(String.valueOf(value));
+                        this.Reload(dao.selectAll());
+        	}
+        });
+       
+       // this.jTable1.setEnabled(false);
+>>>>>>> refs/remotes/origin/HuuTu
     }
 
     /**
@@ -60,7 +89,12 @@ public class HomeProduct extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,6 +125,41 @@ public class HomeProduct extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+<<<<<<< HEAD
+=======
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       InsertProduct insert = new InsertProduct();
+       insert.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        UpdateProduct update  = new UpdateProduct();
+        update.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Reload(dao.selectAll());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void searchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFocusLost
+        List<Products> list = dao.searchProduct(this.search.getText());
+        if(list == null){
+            JOptionPane.showMessageDialog(null, "Can't find");
+        }
+        Reload(list);
+    }//GEN-LAST:event_searchFocusLost
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        Home home = new Home();
+        home.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
+
+>>>>>>> refs/remotes/origin/HuuTu
     /**
      * @param args the command line arguments
      */

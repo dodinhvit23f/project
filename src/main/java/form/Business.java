@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package form;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -231,7 +230,7 @@ public class Business extends javax.swing.JFrame {
         try {
             Connection conn = ConnnectionUtil.getConnection();
             stm = conn.createStatement();
-            String sql = "SELECT SUM(p.PriceIn*t.quantity) from products as p INNER JOIN testbill as t on p.Id = t.Product_Id WHERE t.SaleDate BETWEEN '" + dateChooserCombo1.getText() + "' and '" + dateChooserCombo2.getText() + "' ";
+            String sql = "SELECT sum(p.PriceIn*bd.Quantities) FROM products as p INNER join bills_detail as bd on p.Id = bd.ProId INNER JOIN bills as b on b.id = bd.bill_id WHERE b.Date BETWEEN '"+dateChooserCombo1.getText()+"' and '"+dateChooserCombo2.getText()+"' ";
             ResultSet rsl = stm.executeQuery(sql);
             while (rsl.next()) {
                 jTable1.setValueAt(rsl.getDouble(1), 0, 1);
@@ -256,7 +255,7 @@ public class Business extends javax.swing.JFrame {
         try {
             Connection conn = ConnnectionUtil.getConnection();
             stm = conn.createStatement();
-            String sql = "SELECT sum(quantity*price) FROM `testbill` WHERE SaleDate BETWEEN '" + dateChooserCombo1.getText() + "' and '" + dateChooserCombo2.getText() + "' ";
+            String sql = "SELECT sum(p.PriceOut*bd.Quantities) FROM products as p INNER join bills_detail as bd on p.Id = bd.ProId INNER JOIN bills as b on b.id = bd.bill_id WHERE b.Date BETWEEN '"+dateChooserCombo1.getText()+"' and '"+dateChooserCombo2.getText()+"' ";
             ResultSet rsl = stm.executeQuery(sql);
             while (rsl.next()) {
                 jTable1.setValueAt(rsl.getDouble(1), 0, 0);
