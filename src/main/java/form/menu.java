@@ -633,7 +633,7 @@ public class menu extends javax.swing.JFrame {
             }else{
                 for(Choose_detail c : Choose){
 
-                    statement.executeUpdate("insert into bills_detail(bill_id,Quantities,Addresss,ReceiveDate,DisCount,ProId)values((SELECT MAX(id) FROM bills),"+c.Quantities+",null,null,null,"+c.id+")");
+                    statement.executeUpdate("insert into bills_detail(bill_id,Quantities,Addresss,DisCount,ProId)values((SELECT MAX(id) FROM bills),"+c.Quantities+",null,null,"+c.id+")");
                 }
             }
         }catch(Exception e){
