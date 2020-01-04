@@ -36,8 +36,8 @@ public class Business extends javax.swing.JFrame {
         setResizable(false);
         DateFormat dateformt = new SimpleDateFormat("yyyy-MM-dd");
         dateformt.setTimeZone(TimeZone.getTimeZone("UTC"));
-        dateChooserCombo1.setDateFormat(dateformt);
-        dateChooserCombo2.setDateFormat(dateformt);
+        dateChooserCombo3.setDateFormat(dateformt);
+        dateChooserCombo4.setDateFormat(dateformt);
         getRevenue();
     }
 
@@ -60,8 +60,8 @@ public class Business extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
-        dateChooserCombo2 = new datechooser.beans.DateChooserCombo();
+        dateChooserCombo3 = new datechooser.beans.DateChooserCombo();
+        dateChooserCombo4 = new datechooser.beans.DateChooserCombo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,11 +139,11 @@ public class Business extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dateChooserCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dateChooserCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dateChooserCombo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE))
                         .addContainerGap())))
@@ -164,14 +164,15 @@ public class Business extends javax.swing.JFrame {
                                 .addComponent(jLabel2))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dateChooserCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(dateChooserCombo4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(dateChooserCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -230,7 +231,7 @@ public class Business extends javax.swing.JFrame {
         try {
             Connection conn = ConnnectionUtil.getConnection();
             stm = conn.createStatement();
-            String sql = "SELECT sum(p.PriceIn*bd.Quantities) FROM products as p INNER join bills_detail as bd on p.Id = bd.ProId INNER JOIN bills as b on b.id = bd.bill_id WHERE b.Date BETWEEN '"+dateChooserCombo1.getText()+"' and '"+dateChooserCombo2.getText()+"' ";
+            String sql = "SELECT sum(p.PriceIn*bd.Quantities) FROM products as p INNER join bills_detail as bd on p.Id = bd.ProId INNER JOIN bills as b on b.id = bd.bill_id WHERE b.Date BETWEEN '"+dateChooserCombo3.getText()+"' and '"+dateChooserCombo4.getText()+"' ";
             ResultSet rsl = stm.executeQuery(sql);
             while (rsl.next()) {
                 jTable1.setValueAt(rsl.getDouble(1), 0, 1);
@@ -255,7 +256,7 @@ public class Business extends javax.swing.JFrame {
         try {
             Connection conn = ConnnectionUtil.getConnection();
             stm = conn.createStatement();
-            String sql = "SELECT sum(p.PriceOut*bd.Quantities) FROM products as p INNER join bills_detail as bd on p.Id = bd.ProId INNER JOIN bills as b on b.id = bd.bill_id WHERE b.Date BETWEEN '"+dateChooserCombo1.getText()+"' and '"+dateChooserCombo2.getText()+"' ";
+            String sql = "SELECT sum(p.PriceOut*bd.Quantities) FROM products as p INNER join bills_detail as bd on p.Id = bd.ProId INNER JOIN bills as b on b.id = bd.bill_id WHERE b.Date BETWEEN '"+dateChooserCombo3.getText()+"' and '"+dateChooserCombo4.getText()+"' ";
             ResultSet rsl = stm.executeQuery(sql);
             while (rsl.next()) {
                 jTable1.setValueAt(rsl.getDouble(1), 0, 0);
@@ -314,8 +315,8 @@ public class Business extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private datechooser.beans.DateChooserCombo dateChooserCombo1;
-    private datechooser.beans.DateChooserCombo dateChooserCombo2;
+    private datechooser.beans.DateChooserCombo dateChooserCombo3;
+    private datechooser.beans.DateChooserCombo dateChooserCombo4;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

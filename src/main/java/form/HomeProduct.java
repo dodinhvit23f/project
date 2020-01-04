@@ -16,31 +16,17 @@ import javax.swing.table.DefaultTableModel;
  * @author tien.lvt
  */
 public class HomeProduct extends javax.swing.JFrame {
-<<<<<<< HEAD
+
     public static  ProductsDao dao = new ProductsDao();
-=======
 
-    public static ProductsDao dao =  new ProductsDao();
-
->>>>>>> refs/remotes/origin/HuuTu
     /**
      * Creates new form HomeForm
      */
     public HomeProduct() {
         initComponents();  
-<<<<<<< HEAD
-            this.Reload();
-=======
         this.jTable1.requestFocus();
             this.Reload(dao.selectAll());
->>>>>>> refs/remotes/origin/HuuTu
-         //   this.getContentPane().add(new JScrollPane(this.jTable1));
-<<<<<<< HEAD
     }
-=======
-        
-        }
->>>>>>> refs/remotes/origin/HuuTu
     
     public void Reload(){
         List<Products> list = dao.selectAll();
@@ -61,9 +47,6 @@ public class HomeProduct extends javax.swing.JFrame {
             });
         }
         this.jTable1.setModel(dm);
-<<<<<<< HEAD
-        this.setEnabled(false);
-=======
         new ButtonColumn (this.jTable1,9,ss ->{ 
         	int row =  this.jTable1.getSelectedRow();
         	Object value = this.jTable1.getValueAt(row, 0);
@@ -74,7 +57,7 @@ public class HomeProduct extends javax.swing.JFrame {
         });
        
        // this.jTable1.setEnabled(false);
->>>>>>> refs/remotes/origin/HuuTu
+
     }
 
     /**
@@ -125,8 +108,7 @@ public class HomeProduct extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-<<<<<<< HEAD
-=======
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        InsertProduct insert = new InsertProduct();
        insert.setVisible(true);
@@ -159,7 +141,6 @@ public class HomeProduct extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
->>>>>>> refs/remotes/origin/HuuTu
     /**
      * @param args the command line arguments
      */
