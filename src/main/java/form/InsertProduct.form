@@ -55,7 +55,7 @@
                   <Component id="button2" alignment="0" max="32767" attributes="0"/>
                   <Component id="button1" alignment="0" pref="323" max="32767" attributes="0"/>
                   <Component id="quantity" alignment="0" max="32767" attributes="0"/>
-                  <Component id="expDate" max="32767" attributes="0"/>
+                  <Component id="dateChooserCombo2" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel9" min="-2" pref="108" max="-2" attributes="0"/>
@@ -95,15 +95,20 @@
                   <Component id="quantity" alignment="0" min="-2" pref="58" max="-2" attributes="0"/>
                   <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="expDate" alignment="3" min="-2" pref="53" max="-2" attributes="0"/>
-                      <Component id="jLabel9" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel8" min="-2" pref="53" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jLabel8" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="dateChooserCombo2" max="32767" attributes="0"/>
+                          <Component id="jLabel9" min="-2" pref="43" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="button1" min="-2" pref="36" max="-2" attributes="0"/>
                   <Component id="jLabel6" min="-2" pref="56" max="-2" attributes="0"/>
@@ -254,6 +259,8 @@
         </Property>
         <Property name="text" type="java.lang.String" value="YYYY/mm/dd"/>
       </Properties>
+    </Component>
+    <Component class="datechooser.beans.DateChooserCombo" name="dateChooserCombo2">
     </Component>
   </SubComponents>
 </Form>
