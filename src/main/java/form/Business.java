@@ -249,7 +249,7 @@ public class Business extends javax.swing.JFrame {
 
         }
     }
-
+//vl
     public void getRevenue() {
         Statement stm = null;
         try {
