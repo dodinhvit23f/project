@@ -237,7 +237,8 @@ public class Home extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(jLabel4.getText().equals("(manager)")||jLabel4.getText().equals("(accounting)")){
             this.hide();
-            new BillForm().show();
+            //new BillForm().show();
+            new ShowBills().show();
         }else{
 
             JOptionPane.showMessageDialog(rootPane, "You're not allowed to access this");
