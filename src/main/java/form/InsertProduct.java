@@ -59,7 +59,7 @@ public class InsertProduct extends javax.swing.JFrame {
         button2 = new java.awt.Button();
         jLabel7 = new javax.swing.JLabel();
         quantity = new javax.swing.JTextField();
-        expDate = new javax.swing.JTextField();
+      
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
