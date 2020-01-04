@@ -13,7 +13,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
@@ -89,24 +88,6 @@ public final class Utility {
 		dateformt.setTimeZone(TimeZone.getTimeZone("UTC"));
 		return dateformt.parse(date);
 	}
-        
-        public static Date formatDMY(String date) throws ParseException{
-            if (date == null) {
-			return null;
-		}
-		DateFormat dateformt = new SimpleDateFormat("dd/MM/yyyy");
-		dateformt.setTimeZone(TimeZone.getTimeZone("UTC"));
-		return dateformt.parse(date);
-        }
-        
-        public static Date formatMDY(String date) throws ParseException{
-            if (date == null) {
-			return null;
-		}
-		DateFormat dateformt = new SimpleDateFormat("MM/dd/yyyy");
-		dateformt.setTimeZone(TimeZone.getTimeZone("UTC"));
-		return dateformt.parse(date);
-        }
 
     /**
      *
@@ -133,14 +114,6 @@ public final class Utility {
 			return null;
 		}
 		DateFormat dateformt = new SimpleDateFormat("yyyy/MM/dd");
-		return dateformt.format(date);
-	}
-        
-        public static String dateToStringMDY(Date date) throws Exception {
-		if (date == null) {
-			return null;
-		}
-		DateFormat dateformt = new SimpleDateFormat("MM/dd/yyyy");
 		return dateformt.format(date);
 	}
 
