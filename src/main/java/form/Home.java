@@ -29,7 +29,6 @@ public class Home extends javax.swing.JFrame {
      */
     public Home(){       
          initComponents();
-         this.setLocationRelativeTo(null);
          setResizable(false);
             try {          
                	File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
@@ -49,7 +48,6 @@ public class Home extends javax.swing.JFrame {
     }
     public  Home(final String lgName,final String lgRole){
         initComponents();
-        this.setLocationRelativeTo(null);
         setResizable(false);
         jLabel2.setText(lgName);
         jLabel4.setText("("+lgRole+")");
@@ -231,8 +229,8 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.hide();
-        new menu().show();
+
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

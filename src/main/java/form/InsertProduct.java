@@ -5,18 +5,16 @@
  */
 package form;
 
-import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
-
 import common.Constant;
 import common.Utility;
 import entity.Products;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -59,7 +57,7 @@ public class InsertProduct extends javax.swing.JFrame {
         button2 = new java.awt.Button();
         jLabel7 = new javax.swing.JLabel();
         quantity = new javax.swing.JTextField();
-      
+        expDate = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
@@ -167,7 +165,7 @@ public class InsertProduct extends javax.swing.JFrame {
                     .addComponent(button2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                     .addComponent(quantity)
-                    .addComponent(dateChooserCombo2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(expDate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -198,16 +196,13 @@ public class InsertProduct extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateChooserCombo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(37, 37, 37)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(expDate, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -259,24 +254,11 @@ public class InsertProduct extends javax.swing.JFrame {
         product.setStatus("A");
         boolean insert = false;
         try {
-            product.setName(this.name.getText());
-            product.setKind(this.kind.getText());
-            product.setPriceIn(Utility.convertDouble(this.importPrice.getText()));
-            product.setPriceOut(Utility.convertDouble(this.salePrice.getText()));
-            product.setQuantities(PROPERTIES);
-            if( jfc.getSelectedFile() != null){
-                product.setUrl(Constant.FilePath.IMAGE+this.name.getText()+".PNG");
-            } else{
-                throw new Exception ("None file is choose");
-            }
-            product.setStatus("A");
-            product.setExpDate(Utility.fomatDate(this.dateChooserCombo2.getSelectedDate().getTimeInMillis()));
-            product.setImportDate(Utility.fomatDate(System.currentTimeMillis()));
-
-            Utility.copyFileUsingStream(jfc.getSelectedFile(),  new File(Constant.FilePath.IMAGE,this.name.getText()+".PNG"));
-
-            HomeProduct.dao.insertOne(product);
-            JOptionPane.showMessageDialog(null,  "Add product success");
+           product.setExpDate(Utility.fomatDate(this.expDate.getText()));
+           product.setImportDate(Utility.fomatDate(System.currentTimeMillis()));
+           Utility.copyFileUsingStream(jfc.getSelectedFile(),  new File(Constant.FilePath.IMAGE,this.name.getText()+".PNG"));
+           HomeProduct.dao.insertOne(product);
+           insert = true;
         } catch (Exception ex) {
             Logger.getLogger(InsertProduct.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -326,7 +308,7 @@ public class InsertProduct extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
     private java.awt.Button button2;
-    private datechooser.beans.DateChooserCombo dateChooserCombo2;
+    private javax.swing.JTextField expDate;
     private javax.swing.JTextField importPrice;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
