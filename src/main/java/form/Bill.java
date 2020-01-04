@@ -351,7 +351,7 @@ DefaultTableModel model;
                 Logger.getLogger(Bill.class.getName()).log(Level.SEVERE, null, ex);
             }
             this.setVisible(false);
-            Home h = new Home();
+            ShowBills h = new ShowBills();
             h.setVisible(true);
             this.dispose();
         }else{
