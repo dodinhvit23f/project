@@ -5,62 +5,30 @@
  */
 package form;
 
-import common.Utility;
 import dao.ProductsDao;
 import entity.Products;
-import swing.ButtonColumn;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.Border;
-
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-
 
 /**
  *
  * @author tien.lvt
  */
 public class HomeProduct extends javax.swing.JFrame {
-
-    public static ProductsDao dao = new ProductsDao();
-
+    public static  ProductsDao dao = new ProductsDao();
     /**
      * Creates new form HomeForm
      */
     public HomeProduct() {
         initComponents();  
-            this.Reload(dao.selectAll());
+            this.Reload();
          //   this.getContentPane().add(new JScrollPane(this.jTable1));
-        }
+    }
     
-    
-    public void Reload(List<Products> list){
-        
-       DefaultTableModel dm = new DefaultTableModel()
-        {
-            //  Returning the Class of each column will allow different
-            //  renderers to be used based on Class
-               @Override
-            public Class getColumnClass(int column)
-            {
-                return getValueAt(0, column).getClass();
-            }
-            
-                        
-        };
-     
+    public void Reload(){
+        List<Products> list = dao.selectAll();
+        DefaultTableModel dm = new DefaultTableModel();
         dm.addColumn("Number");
         dm.addColumn("Image");
         dm.addColumn("Name");
@@ -70,31 +38,14 @@ public class HomeProduct extends javax.swing.JFrame {
         dm.addColumn("Import Date");
         dm.addColumn("Exp Date");
         dm.addColumn("Quantity");
-        dm.addColumn("Action");
+        int i = 0;
         for(Products ele : list){
-            try {
-                // this.jTable1.getColumn("Action").setCellEditor(new ButtonEditor(new JTextField()));
-                dm.addRow(new Object[]
-                {ele.getId(),new ImageIcon(ele.getUrl()),ele.getName(),ele.getKind(),ele.getPriceIn()
-                        ,ele.getPriceOut(),Utility.dateToString(ele.getImportDate()),Utility.dateToString(ele.getExpDate()),ele.getQuantities(),"delete"
-                });
-            } catch (Exception ex) {
-                Logger.getLogger(HomeProduct.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            dm.addRow(new Object[] 
+            {i++,new ImageIcon(ele.getUrl()),ele.getName(),ele.getKind(),ele.getPriceIn(),ele.getPriceOut(),ele.getImportDate(),ele.getExpDate(),ele.getQuantities()
+            });
         }
-        this.jTable1.clearSelection();
-        this.jTable1.setRowHeight(100);
-      //  this.jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         this.jTable1.setModel(dm);
-        new ButtonColumn (this.jTable1,9,ss ->{ 
-        	int row =  this.jTable1.getSelectedRow();
-        	Object value = this.jTable1.getValueAt(row, 0);
-        	if(JOptionPane.showConfirmDialog(null, " Do you want to delete this") == JOptionPane.YES_OPTION) {
-        		dao.delete(String.valueOf(value));
-        	}
-        });
-       
-       // this.jTable1.setEnabled(false);
+        this.setEnabled(false);
     }
 
     /**
@@ -108,11 +59,6 @@ public class HomeProduct extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        search = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,98 +75,21 @@ public class HomeProduct extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Insert");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Reload");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Update");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Search");
-
-        search.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                searchFocusLost(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(107, 107, 107)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(125, 125, 125)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(137, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 400, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       InsertProduct insert = new InsertProduct();
-       insert.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        UpdateProduct update  = new UpdateProduct();
-        update.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Reload(dao.selectAll());
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void searchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFocusLost
-        List<Products> list = dao.searchProduct(this.search.getText());
-        if(list == null){
-            JOptionPane.showMessageDialog(null, "Can't find");
-        }
-        Reload(list);
-    }//GEN-LAST:event_searchFocusLost
 
     /**
      * @param args the command line arguments
@@ -252,19 +121,14 @@ public class HomeProduct extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {   
+            public void run() {
                 new HomeProduct().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField search;
     // End of variables declaration//GEN-END:variables
 }
