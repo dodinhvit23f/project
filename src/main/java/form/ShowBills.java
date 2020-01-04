@@ -26,6 +26,7 @@ long count,sotrang,trang =1;
      */
     public ShowBills() {
         initComponents();
+        this.setLocationRelativeTo(null);
         model = (DefaultTableModel) jTable1.getModel();
          CountDB();
         if(count % 13 == 0){

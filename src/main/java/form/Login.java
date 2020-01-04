@@ -262,7 +262,6 @@ public class Login extends javax.swing.JFrame {
                         }
                     }
                 }
-
             }else{
                 try{
                     conn = ConnnectionUtil.getConnection();

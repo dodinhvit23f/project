@@ -50,10 +50,12 @@ DefaultTableModel model;
         
         this.setLocationRelativeTo(null);
          model = (DefaultTableModel) data_table.getModel();
+         this.setLocationRelativeTo(null);
          
     }
     public Bill(int bill_id,String xacnhan){
          initComponents();
+         this.setLocationRelativeTo(null);
     billId = bill_id;
     Check = xacnhan;
     model = (DefaultTableModel) data_table.getModel();

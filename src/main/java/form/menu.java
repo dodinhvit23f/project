@@ -49,6 +49,7 @@ public class menu extends javax.swing.JFrame {
      */
     public menu() {
         initComponents();
+        
          this.setLocationRelativeTo(null);
         model = (DefaultTableModel) jTable1.getModel();   
         model1 = (DefaultTableModel) jTable2.getModel();

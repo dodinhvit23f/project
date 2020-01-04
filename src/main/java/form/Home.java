@@ -29,6 +29,7 @@ public class Home extends javax.swing.JFrame {
      */
     public Home(){       
          initComponents();
+         this.setLocationRelativeTo(null);
          setResizable(false);
             try {          
                	File file =new File(FilePath.URL+"\\src\\main\\java\\Text\\UserName.txt");
@@ -48,6 +49,7 @@ public class Home extends javax.swing.JFrame {
     }
     public  Home(final String lgName,final String lgRole){
         initComponents();
+        this.setLocationRelativeTo(null);
         setResizable(false);
         jLabel2.setText(lgName);
         jLabel4.setText("("+lgRole+")");
