@@ -1,8 +1,11 @@
 package Main;
 
-import common.Constant.FilePath;
 import common.Utility;
+import common.Constant.FilePath;
 import dao.ProductsDao;
+import entity.Products;
+import java.io.Closeable;
+import java.io.File;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
@@ -15,7 +18,6 @@ public class Main {
 		 */
                 dao.searchProduct("1");
 		System.out.println(FilePath.URL);
-		System.out.println(Utility.hash("12345678"));
 		//	dao.selectAll();
 		//	dao.insertOne(new String[] {"a "}, new String[] {"a "});
 			/*
