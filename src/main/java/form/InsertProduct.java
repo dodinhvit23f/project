@@ -58,27 +58,20 @@ public class InsertProduct extends javax.swing.JFrame {
         button2 = new java.awt.Button();
         jLabel7 = new javax.swing.JLabel();
         quantity = new javax.swing.JTextField();
-      
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        dateChooserCombo2 = new datechooser.beans.DateChooserCombo();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         name.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         name.setAutoscrolls(false);
-        name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameActionPerformed(evt);
-            }
-        });
 
         kind.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        kind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kindActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         jLabel1.setText("Name");
@@ -90,11 +83,6 @@ public class InsertProduct extends javax.swing.JFrame {
         jLabel4.setText("Import Price");
 
         importPrice.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        importPrice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                importPriceActionPerformed(evt);
-            }
-        });
 
         salePrice.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
 
@@ -112,7 +100,6 @@ public class InsertProduct extends javax.swing.JFrame {
             }
         });
 
-        button2.setActionCommand("Insert");
         button2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         button2.setLabel("Inset");
         button2.addActionListener(new java.awt.event.ActionListener() {
@@ -124,17 +111,11 @@ public class InsertProduct extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         jLabel7.setText("Quantity");
 
-        quantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                quantityActionPerformed(evt);
-            }
-        });
-
         jLabel8.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         jLabel8.setText("Exp Date");
 
         jLabel9.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-        jLabel9.setText("YYYY/mm/dd");
+        jLabel9.setText("MM/DD/YYYY");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,7 +140,7 @@ public class InsertProduct extends javax.swing.JFrame {
                                 .addGap(0, 46, Short.MAX_VALUE))
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(119, 119, 119)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(salePrice)
                     .addComponent(kind, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                     .addComponent(name)
@@ -219,21 +200,10 @@ public class InsertProduct extends javax.swing.JFrame {
         name.getAccessibleContext().setAccessibleName("");
         name.getAccessibleContext().setAccessibleDescription("");
         button2.getAccessibleContext().setAccessibleName("Insert");
+        button2.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nameActionPerformed
-
-    private void kindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kindActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_kindActionPerformed
-
-    private void importPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importPriceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_importPriceActionPerformed
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         //System.out.println("form.InsertProduct.button1ActionPerformed()"+ jfc.getAcceptAllFileFilter().toString());
@@ -246,18 +216,16 @@ public class InsertProduct extends javax.swing.JFrame {
 			System.out.println(selectedFile.getAbsolutePath());
                         System.out.println(selectedFile.getPath());
 		}*/
+        if(this.jfc.getSelectedFile()== null){
+            JOptionPane.showMessageDialog(null, "You not select file yet ");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, " File is choice");
+        } 
     }//GEN-LAST:event_button1ActionPerformed
 
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
         Products product = new Products();
-        product.setName(this.name.getText());
-        product.setKind(this.kind.getText());
-        product.setPriceIn(Utility.convertDouble(this.importPrice.getText()));
-        product.setPriceOut(Utility.convertDouble(this.salePrice.getText()));
-        product.setQuantities(PROPERTIES);
-        product.setUrl(Constant.FilePath.IMAGE+this.name.getText()+".PNG");
-        product.setStatus("A");
-        boolean insert = false;
         try {
             product.setName(this.name.getText());
             product.setKind(this.kind.getText());
@@ -278,50 +246,18 @@ public class InsertProduct extends javax.swing.JFrame {
             HomeProduct.dao.insertOne(product);
             JOptionPane.showMessageDialog(null,  "Add product success");
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,  "Add product fail");
             Logger.getLogger(InsertProduct.class.getName()).log(Level.SEVERE, null, ex);
         }
        
     }//GEN-LAST:event_button2ActionPerformed
 
-    private void quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantityActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_quantityActionPerformed
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        HomeProduct home = new HomeProduct();
+        home.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * @param args the command line arguments
-     */
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InsertProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InsertProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InsertProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InsertProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InsertProduct().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
