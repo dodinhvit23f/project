@@ -37,6 +37,8 @@ DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm:ss");
    LocalDateTime now = LocalDateTime.now();
    int billId =0;
    int DeleteId;
+   String Name = "";
+   String PhoneNum = "";
 DefaultTableModel model;
     /**
      * Creates new form Bill
@@ -51,6 +53,12 @@ DefaultTableModel model;
     public Bill(int bill_id){
          initComponents();
     billId = bill_id;
+    model = (DefaultTableModel) data_table.getModel();
+    }
+    public Bill(String name,String Phone){
+        initComponents();
+    Name = name;
+    PhoneNum = Phone;
     model = (DefaultTableModel) data_table.getModel();
     }
 
@@ -77,6 +85,7 @@ DefaultTableModel model;
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -137,6 +146,14 @@ DefaultTableModel model;
             }
         });
 
+        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton4.setText("Back");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -174,20 +191,25 @@ DefaultTableModel model;
                                 .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 43, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addGap(219, 219, 219))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29))))
+                        .addGap(190, 190, 190))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 43, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -232,14 +254,15 @@ DefaultTableModel model;
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        String date="";
      String query = "";
          try{
           connect = Connect.createConnection();
             Statement statement = connect.createStatement();
             if(billId ==0){
-             query ="SELECT tmp.id,tmp.Quantities,products.Name as pro_name,products.PriceOut,tmp.DisCount FROM (select* from bills inner join bills_detail on bills.id=bills_detail.bill_id where bills.id = (SELECT MAX(id) FROM bills))tmp  inner join products on tmp.ProId = products.Id"; 
+             query ="SELECT tmp.id,tmp.Date,tmp.Quantities,products.Name as pro_name,products.PriceOut,tmp.DisCount FROM (select* from bills inner join bills_detail on bills.id=bills_detail.bill_id where bills.id = (SELECT MAX(id) FROM bills))tmp  inner join products on tmp.ProId = products.Id"; 
             }else{
-            query = "SELECT tmp.id,tmp.Quantities,products.Name as pro_name,products.PriceOut,tmp.DisCount FROM (select* from bills inner join bills_detail on bills.id=bills_detail.bill_id where bills.id = "+billId+")tmp  inner join products on tmp.ProId = products.Id"; 
+            query = "SELECT tmp.id,tmp.Date,tmp.Quantities,products.Name as pro_name,products.PriceOut,tmp.DisCount FROM (select* from bills inner join bills_detail on bills.id=bills_detail.bill_id where bills.id = "+billId+")tmp  inner join products on tmp.ProId = products.Id"; 
             }
             ResultSet result = statement.executeQuery(query);
             while(result.next()){               
@@ -247,7 +270,7 @@ DefaultTableModel model;
             int Quantities = result.getInt("Quantities");
             String Pro_Name = result.getString("pro_name");
             double PriceOut = result.getDouble("PriceOut");
-          
+             date = result.getString("Date");
             double Total =PriceOut*Quantities;
             bills_detail bill = new bills_detail();
             
@@ -265,7 +288,7 @@ DefaultTableModel model;
             }
            
           jLabel9.setText(vn.format(total)+" VND");
-          jLabel5.setText(dtf.format(now));
+          jLabel5.setText(date);
             showall();
            
          }catch(Exception e){
@@ -303,11 +326,37 @@ DefaultTableModel model;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-         showMessageDialog(null, "Thanh Cong");
-         this.dispose();
-         new Home().show();
+        // TODO add your handling code here:   
+         Connection connect = null;
+    try {
+        
+          connect = Connect.createConnection();
+        Statement statement = connect.createStatement();
+        statement.executeUpdate("update members set Point = Point + 1  where  Name = '"+Name+"' and PhoneNumber = '"+PhoneNum+"'");
+        
+    } catch (SQLException ex) {
+        Logger.getLogger(Bill.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    finally{
+            if(connect != null){
+                try {
+                    connect.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            }
+    this.setVisible(false);
+    new Home().setVisible(true);
+     showMessageDialog(null, "Thanh Cong");
+      
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        this.hide();
+        new ShowBills().show();
+    }//GEN-LAST:event_jButton4ActionPerformed
 public void showall(){
       
     // data_table.setAutoResizeMode(data_table.AUTO_RESIZE_OFF);
@@ -362,6 +411,7 @@ public void showall(){
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
