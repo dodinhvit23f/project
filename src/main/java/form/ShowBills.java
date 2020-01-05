@@ -258,7 +258,7 @@ long count,sotrang,trang =1;
         // TODO add your handling code here:
         int row =jTable1.getSelectedRow();
         int bill_id = (Integer)model.getValueAt(row, 0);
-        Bill b = new Bill(bill_id);
+        Bill b = new Bill(bill_id,"check");
         b.show();
         this.hide();
     }//GEN-LAST:event_jTable1MouseClicked

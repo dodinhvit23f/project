@@ -5,6 +5,7 @@
  */
 package form;
 import common.Connect;
+import java.awt.Color;
 import java.util.List;
 import java.text.*;
 import java.sql.Connection;
@@ -40,6 +41,7 @@ DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm:ss");
    String Name = "";
    String PhoneNum = "";
 DefaultTableModel model;
+String disable ="";
     /**
      * Creates new form Bill
      */
@@ -50,8 +52,9 @@ DefaultTableModel model;
          model = (DefaultTableModel) data_table.getModel();
          
     }
-    public Bill(int bill_id){
+    public Bill(int bill_id,String check){
          initComponents();
+         disable = check;
     billId = bill_id;
     model = (DefaultTableModel) data_table.getModel();
     }
@@ -284,6 +287,10 @@ DefaultTableModel model;
         // TODO add your handling code here:
         String date="";
      String query = "";
+     if(disable != ""){
+     jButton1.setBackground(Color.GRAY);
+      jButton8.setBackground(Color.GRAY);
+     }
          try{
           connect = Connect.createConnection();
             Statement statement = connect.createStatement();
@@ -334,6 +341,7 @@ DefaultTableModel model;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if(disable ==""){
         int opsion = JOptionPane.showConfirmDialog(null, "Delete?", "Confirm", JOptionPane.YES_NO_OPTION);
         if(opsion == 0){
             try {
@@ -351,10 +359,15 @@ DefaultTableModel model;
         }else{
             return;
         }
+        }
+        else{
+            return;
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton8jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8jButton2ActionPerformed
         // TODO add your handling code here:
+        if(disable == ""){
         Connection connect = null;
         try {
 
@@ -373,6 +386,10 @@ DefaultTableModel model;
                     Logger.getLogger(Bill.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+        }
+        }
+        else{
+            return;
         }
         this.setVisible(false);
         new Home().setVisible(true);
