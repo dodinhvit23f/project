@@ -4,36 +4,21 @@
 <hibernate-reverse-engineering>
 	<table-filter match-name="bills" match-catalog="javaproject2"></table-filter>
 <<<<<<< HEAD
-=======
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/HuuTu
 	<table-filter match-name="members" match-catalog="javaproject2"></table-filter>
 	<table-filter match-name="products" match-catalog="javaproject2"></table-filter>
-=======
-<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 	<table-filter match-name="members" match-catalog="javaproject2"></table-filter>
 	<table-filter match-name="products" match-catalog="javaproject2"></table-filter>
 =======
->>>>>>> refs/remotes/origin/HuuTu
->>>>>>> refs/heads/master
 	<table-filter match-name="products" match-catalog="javaproject2"></table-filter>
 	<table-filter match-name="members" match-catalog="javaproject2"></table-filter>
-<<<<<<< HEAD
-=======
 >>>>>>> branch 'master' of https://github.com/dodinhvit23f/project
-<<<<<<< HEAD
-=======
 >>>>>>> refs/heads/master
 =======
 	<table-filter match-name="products" match-catalog="javaproject2"></table-filter>
 	<table-filter match-name="members" match-catalog="javaproject2"></table-filter>
->>>>>>> refs/heads/master
->>>>>>> refs/remotes/origin/HuuTu
 >>>>>>> refs/heads/master
 	<table-filter match-name="users" match-catalog="javaproject2"></table-filter>
 </hibernate-reverse-engineering>

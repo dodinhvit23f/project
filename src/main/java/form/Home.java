@@ -256,7 +256,7 @@ public class Home extends javax.swing.JFrame {
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         if(jLabel4.getText().equals("(manager)")){
             this.dispose();
-//            new Business().show();
+           new Business().show();
         }else{
             JOptionPane.showMessageDialog(rootPane, "You're not allowed to access this");
         }
