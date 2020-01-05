@@ -157,14 +157,14 @@ CREATE TABLE `products` (
   `ImportDate` date NOT NULL,
   `ExpDate` date NOT NULL,
   `Url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `status` varchar(1) COLLATE utf8_unicode_ci NOT NULL
+  `Status` varchar(1) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`Id`, `Name`, `PriceIn`, `PriceOut`, `Kind`, `Quantities`, `ImportDate`, `ExpDate`, `Url`, `status`) VALUES
+INSERT INTO `products` (`Id`, `Name`, `PriceIn`, `PriceOut`, `Kind`, `Quantities`, `ImportDate`, `ExpDate`, `Url`, `Status`) VALUES
 (2, 'Hai', 1000, 1200, '4', 163432, '2019-12-02', '2019-12-13', 'rty', ''),
 (3, 'iphone', 1000, 3000, '3', 9950, '2019-12-02', '2019-12-11', 'da', ''),
 (4, 'Kho ga` ', 10000, 20000, '2', 9994, '2019-12-15', '2019-12-18', 'dsfds', ''),

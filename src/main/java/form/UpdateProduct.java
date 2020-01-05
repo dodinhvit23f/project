@@ -9,11 +9,9 @@ import common.Constant;
 import common.Utility;
 import entity.Products;
 import java.io.File;
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -33,8 +31,12 @@ public class UpdateProduct extends javax.swing.JFrame {
      * Creates new form Update
      */
     public UpdateProduct() {
+        
         initComponents();
+        this.jTextField1.setFocusable(true);
+        this.jTextField1.requestFocus();
         this.setSize(802, 802);
+        this.jTextField1.setVisible(true);
     }
     
     /**
@@ -64,7 +66,7 @@ public class UpdateProduct extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
@@ -85,11 +87,6 @@ public class UpdateProduct extends javax.swing.JFrame {
         jLabel5.setText("Url Image");
 
         name.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameActionPerformed(evt);
-            }
-        });
 
         salePrice.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
 
@@ -101,6 +98,7 @@ public class UpdateProduct extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         jLabel6.setText("Exp Date");
 
+        Id.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         Id.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 IdFocusLost(evt);
@@ -124,11 +122,7 @@ public class UpdateProduct extends javax.swing.JFrame {
             }
         });
 
-        dateChooserCombo1.addSelectionChangedListener(new datechooser.events.SelectionChangedListener() {
-            public void onSelectionChange(datechooser.events.SelectionChangedEvent evt) {
-                dateChooserCombo1OnSelectionChange(evt);
-            }
-        });
+        jTextField1.setText("jTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,19 +148,22 @@ public class UpdateProduct extends javax.swing.JFrame {
                             .addComponent(kind)
                             .addComponent(salePrice)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jTextField1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(dateChooserCombo1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(331, 331, 331)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(192, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(120, 120, 120))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
+                .addGap(23, 23, 23)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Id, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -197,9 +194,7 @@ public class UpdateProduct extends javax.swing.JFrame {
                         .addGap(21, 21, 21))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(258, Short.MAX_VALUE))
@@ -264,9 +259,12 @@ public class UpdateProduct extends javax.swing.JFrame {
             this.kind.setText(oldClazz.getKind());
             this.quantity.setText(String.valueOf(oldClazz.getQuantities()));
             this.jfc.setSelectedFile(new File(oldClazz.getUrl())); 
-            try {
-                 this.dateChooserCombo1.setText(Utility.dateToStringMDY(this.oldClazz.getImportDate()));
-                 this.jTextField1.setText(Utility.dateToString(oldClazz.getExpDate()));
+            try {               
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd");
+                calendar.setTime(this.oldClazz.getExpDate());
+                this.dateChooserCombo1.setSelectedDate(calendar);
+               // this.dateChooserCombo1.setText(Utility.dateToStringMDY(this.oldClazz.getImportDate()));            
             } catch (Exception ex) {
                 Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -274,24 +272,10 @@ public class UpdateProduct extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_IdFocusLost
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        HomeProduct home = new HomeProduct();
-        home.setVisible(true);
+    private void formWindowClosing (java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        new HomeProduct().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_formWindowClosing
-
-    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nameActionPerformed
-
-    private void dateChooserCombo1OnSelectionChange(datechooser.events.SelectionChangedEvent evt) {//GEN-FIRST:event_dateChooserCombo1OnSelectionChange
-        try {
-            // TODO add your handling code here:
-            this.jTextField1.setText(Utility.dateToString(Utility.fomatDate(dateChooserCombo1.getSelectedDate().getTimeInMillis())));
-        } catch (Exception ex) {
-            Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_dateChooserCombo1OnSelectionChange
+    }//GEN-LAST:event_formWindowClosed
     	private static final long serialVersionUID = 1781270044444263719L;
 	private final JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 	private Products oldClazz = new Products();

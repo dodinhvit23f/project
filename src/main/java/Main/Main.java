@@ -3,23 +3,30 @@ package Main;
 import common.Constant.FilePath;
 import common.Utility;
 import dao.ProductsDao;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
 	
 	 		
-		ProductsDao dao = new ProductsDao();
-		/*
-		 * String [] field = {"username","phone" ,"area","rank","id"}; String [] param =
-		 * {"tiendd","16","Viet Nam","1","14"}; dao.updateOne(field, param)
-		 */
-                dao.searchProduct("1");
-		System.out.println(FilePath.URL);
-		System.out.println(Utility.hash("12345678"));
+	  Calendar calendar = Calendar.getInstance();
+          calendar.setTimeInMillis(System.currentTimeMillis());
+          SimpleDateFormat datetime = new SimpleDateFormat("YYYY-MM-DD");
+          Date date = datetime.parse(datetime.format(calendar.getTime()));
+          SimpleDateFormat year = new SimpleDateFormat("YYYY");
+          SimpleDateFormat month = new SimpleDateFormat("MM");
+          SimpleDateFormat day = new SimpleDateFormat("EEEE");
+                calendar.set(Utility.convertInt(year.format(date))
+                        ,Utility.convertInt(month.format(date))
+                        ,Utility.convertInt(day.format(date)));
 		//	dao.selectAll();
 		//	dao.insertOne(new String[] {"a "}, new String[] {"a "});
 			/*
 			 * list.forEach((ele) ->{ System.out.println(ele.getUsername()); });
 			 */       
+                System.out.println("Altered year is :" + calendar.getTime()); 
+                 System.out.println("Altered year is :" + datetime.format(calendar.getTime())); 
 	}
 }

@@ -60,10 +60,11 @@ public class InsertProduct extends javax.swing.JFrame {
         quantity = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        dateChooserCombo2 = new datechooser.beans.DateChooserCombo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
@@ -252,11 +253,10 @@ public class InsertProduct extends javax.swing.JFrame {
        
     }//GEN-LAST:event_button2ActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        HomeProduct home = new HomeProduct();
-        home.setVisible(true);
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        new HomeProduct().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
