@@ -66,8 +66,8 @@ public class UpdateProduct extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing1(evt);
             }
         });
 
@@ -203,7 +203,7 @@ public class UpdateProduct extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if(this.oldClazz.getStatus().equals("A")
-                ||(System.currentTimeMillis() - this.oldClazz.getImportDate().getTime())/86400 < 2 ){
+                && (System.currentTimeMillis() - this.oldClazz.getImportDate().getTime())/86400 < 2 ){
             this.oldClazz.setName(this.name.getText());
             this.oldClazz.setKind(this.kind.getText());
             this.oldClazz.setPriceOut(Utility.convertDouble(this.salePrice.getText()));
@@ -214,13 +214,15 @@ public class UpdateProduct extends javax.swing.JFrame {
                 if( jfc.getSelectedFile() != null){
                    this.oldClazz.setUrl(Constant.FilePath.IMAGE+this.name.getText()+".PNG");
                 } else{
-                throw new Exception ("None file is choose");
+                throw new NoSuchFieldException("None file is choose");
                 }
                 Utility.copyFileUsingStream(jfc.getSelectedFile(), new File(this.oldClazz.getUrl()));
                 HomeProduct.dao.updateOne(this.oldClazz, Utility.convertInt(this.Id.getText()));
-                JOptionPane.showMessageDialog(null,  "Add product success");
+                JOptionPane.showMessageDialog(null,  "Change product success");
+            } catch(NoSuchFieldException ex) {
+                JOptionPane.showMessageDialog(null,  ex.getMessage());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null,  "Add product fail");
+                JOptionPane.showMessageDialog(null,  "Change product fail");
                 Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
@@ -261,7 +263,6 @@ public class UpdateProduct extends javax.swing.JFrame {
             this.jfc.setSelectedFile(new File(oldClazz.getUrl())); 
             try {               
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd");
                 calendar.setTime(this.oldClazz.getExpDate());
                 this.dateChooserCombo1.setSelectedDate(calendar);
                // this.dateChooserCombo1.setText(Utility.dateToStringMDY(this.oldClazz.getImportDate()));            
@@ -273,9 +274,14 @@ public class UpdateProduct extends javax.swing.JFrame {
     }//GEN-LAST:event_IdFocusLost
 
     private void formWindowClosing (java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        new HomeProduct().setVisible(true);
-        this.dispose();
+      
     }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing1(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing1
+        // TODO add your handling code here:
+          new HomeProduct().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing1
     	private static final long serialVersionUID = 1781270044444263719L;
 	private final JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 	private Products oldClazz = new Products();
@@ -323,11 +329,11 @@ public class UpdateProduct extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+       /* java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new UpdateProduct().setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

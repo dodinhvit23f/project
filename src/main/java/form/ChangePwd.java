@@ -5,6 +5,7 @@
  */
 package form;
 
+import common.Utility;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -251,7 +252,7 @@ public class ChangePwd extends javax.swing.JFrame {
         try{
             conn = ConnnectionUtil.getConnection();
             stm = conn.createStatement();
-            String sql ="select * from users where name='"+jTextField2.getText()+"' and pwd='"+jPasswordField3.getText()+"'";
+            String sql ="select * from users where name='"+jTextField2.getText()+"' and pwd='"+Utility.hash(jPasswordField3.getText())+"'";
             rsl = stm.executeQuery(sql);
             if(!rsl.first()){
                 JOptionPane.showMessageDialog(rootPane, "Something's wrong");
@@ -262,7 +263,7 @@ public class ChangePwd extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Password can't be empty");
             }
             else{
-                stm.executeUpdate("update users set pwd='"+jPasswordField4.getText()+"' where name='"+jTextField2.getText()+"'");
+                stm.executeUpdate("update users set pwd='"+Utility.hash(jPasswordField4.getText())+"' where name='"+jTextField2.getText()+"'");
                 JOptionPane.showMessageDialog(rootPane, "Done");
                 this.hide();
                 new Login().show();
