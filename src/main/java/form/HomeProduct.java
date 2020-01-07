@@ -93,8 +93,7 @@ public class HomeProduct extends javax.swing.JFrame {
         for(Products ele : list){
             if(ele.getUrl() != null || !ele.getUrl().equals("")){
                 icon = new ImageIcon(ele.getUrl());
-                icon.setImage(icon.getImage().getScaledInstance(100, 100,Image.SCALE_DEFAULT));
-                icon.setDescription("Image");
+               
                 try {	
                    
                     dm.addRow(new Object[]{

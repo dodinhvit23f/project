@@ -10,6 +10,7 @@ import common.Utility;
 import entity.Products;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -238,20 +239,22 @@ public class InsertProduct extends javax.swing.JFrame {
             if( jfc.getSelectedFile() != null){
                 product.setUrl(Constant.FilePath.IMAGE+this.name.getText()+".PNG");
             } else{
-                throw new Exception ("None file is choose");
+                throw new  FileNotFoundException("None file is choose");
             }
             product.setStatus("A");
             product.setExpDate(Utility.fomatDate(this.dateChooserCombo2.getSelectedDate().getTimeInMillis()));
             product.setImportDate(Utility.fomatDate(System.currentTimeMillis()));
 
-            Utility.copyFileUsingStream(jfc.getSelectedFile(),  new File(Constant.FilePath.IMAGE,this.name.getText()+".PNG"));
+            Utility.resize(jfc.getSelectedFile().getPath(), Constant.FilePath.IMAGE+this.name.getText()+".PNG",100,100 );
 
             HomeProduct.dao.insertOne(product);
             JOptionPane.showMessageDialog(null,  "Add product success");
+        } catch (FileNotFoundException ex ){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,  "Add product fail");
             Logger.getLogger(InsertProduct.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
        
     }//GEN-LAST:event_button2ActionPerformed
 
